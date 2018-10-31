@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "anime": "^0.1.2",
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.2",
     "canvas": "^2.0.1",
@@ -27,10 +28,12 @@
     "express": "^4.15.4",
     "express-session": "^1.15.6",
     "if-env": "^1.0.4",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "react-dom": "^16.6.0",
     "sequelize": "^4.41.0",
     "socket.io": "^2.1.1"
   }
