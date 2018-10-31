@@ -1,37 +1,29 @@
-## Welcome to GitHub Pages
+# Create React Express App
 
-You can use the [editor on GitHub](https://github.com/scottasawyer/plexx/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## About This Boilerplate
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
 
-### Markdown
+The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Starting the app locally
 
-```markdown
-Syntax highlighted code block
+Start by installing front and backend dependencies. While in this directory, run the following command:
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```
+yarn install
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+This should install node modules within the server and the client folder.
 
-### Jekyll Themes
+After both installations complete, run the following command in your terminal:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/scottasawyer/plexx/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```
+yarn start
+```
 
-### Support or Contact
+Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Deployment (Heroku)
+
+To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
