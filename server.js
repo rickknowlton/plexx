@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+const Sequelize = require("sequelize");
 const db = require("./models");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -15,10 +16,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Require API routes
-const mysqlRoutes = require('./routes/mysql-routes');
+const routes = require('./routes');
 
 // Define API routes here
-app.use('/', mysqlRoutes);
+app.use(routes);
 
 // Send every other request to the React app
 // Define any API routes before this runs
@@ -38,7 +39,7 @@ if (process.env.NODE_ENV === "test") {
 db.sequelize.sync(syncOptions).then(function() {
   app.listen(PORT, function() {
     console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      "=======> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
       PORT
     );
