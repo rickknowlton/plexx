@@ -9,7 +9,7 @@ router.route("/")
     .post(userController.newUserScores)
     .get(userController.getScores);
 
-// router.route("/:id")
-//     .put(userController.updateScore);
+router.route("/:id")
+    .put(userController.updateScore);
 
 module.exports = router;

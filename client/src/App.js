@@ -24,8 +24,9 @@ class App extends Component {
   // Get logged in userData
   getCurrentUser = (event) => {
     event.preventDefault();
-    API.getUser().then(data => {
-      console.log(`username: ${data.data.username}\nid: ${data.data.id}`);
+    API.getUser().then(res => {
+      console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
+      // this.updateScore();
     });
   };
 
@@ -35,6 +36,19 @@ class App extends Component {
     API.getScores().then(data => {
       console.log(`scores: ${data.data.scores}`);
     })
+  }
+
+  // Update Users score
+  // replace string with UserId in dataBase to update scores
+  handleUpdateScore = (event) => {
+    event.preventDefault();
+    API.updateScore("2afeb600-6ca2-41bf-9092-603f57e2a2fa", 
+      {
+        levelOne: 1,
+        levelTwo: 2,
+        levelThree: 3
+      }
+    )
   }
 
   render() {

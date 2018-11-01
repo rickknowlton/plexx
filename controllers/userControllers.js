@@ -37,7 +37,8 @@ module.exports = {
     // Update a level score from userID
     updateScore: function(req, res) {
         db.Score
-            .findOneAndUpdate({ UserId: req.params.id }, req.body)
+            .update(req.body,
+                { returning: true, where: {UserId: req.params.id} })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

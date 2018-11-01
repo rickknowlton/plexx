@@ -16,6 +16,10 @@ export default {
     return axios.post("/api/scores", userData);
   },
 
+  updateScore: function(id, userData) {
+    return axios.put(`api/scores/${id}`, userData);
+  },
+
   // Get level scores
   getScores: function() {
     return axios.get("/api/scores");
