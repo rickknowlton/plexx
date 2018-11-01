@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "anime": "^0.1.2",
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.2",
     "canvas": "^2.0.1",

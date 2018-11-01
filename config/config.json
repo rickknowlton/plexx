@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "myPassword",
-    "database": "blueit",
+    "database": "plexx",
     "host": "localhost",
     "dialect": "mysql"
   },
