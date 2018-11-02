@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "myPassword",
+    "password": "Sterling",
     "database": "plexx",
     "host": "localhost",
     "dialect": "mysql"

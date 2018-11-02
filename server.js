@@ -1,14 +1,27 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const Sequelize = require("sequelize");
-const db = require("./models");
-const PORT = process.env.PORT || 3001;
-const app = express();
+const express = require("express"),
+  app = express(),
+  passport = require('passport'),
+  session = require('express-session'),
+  path = require("path"),
+  bodyParser = require("body-parser"),
+  Sequelize = require("sequelize"),
+  db = require("./models"),
+  PORT = process.env.PORT || 3001;
 
-// Define middleware here
+// For BodyParser
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+// For Passport
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -16,10 +29,16 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Require API routes
-const routes = require('./routes');
+const routes = require('./routes'),
+  authRoute = require('./routes/auth.js');
+
+
 
 // Define API routes here
 app.use(routes);
+
+//load passport strategies
+require('./config/passport/passport')(passport,db.user);
 
 // Send every other request to the React app
 // Define any API routes before this runs
@@ -27,7 +46,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-var syncOptions = { force: false };
+var syncOptions = {
+  force: false
+};
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -36,8 +57,8 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
+db.sequelize.sync(syncOptions).then(function () {
+  app.listen(PORT, function () {
     console.log(
       "=======> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,

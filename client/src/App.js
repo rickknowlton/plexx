@@ -70,6 +70,19 @@ class App extends Component {
           <button onClick={this.handleGetScores}>get all scores</button>
         </div>
       </div>
+      // <div className="SignUp">
+      //   <form id="signup" name="signup" method="post" action="/signup">
+      //   <label for="email">Email Address</label>
+      //   <input className="text" name="email" type="email" />
+      //   <label for="firstname">Firstname</label>
+      //   <input name="firstname" type="text" />
+      //   <label for="lastname">Lastname</label>
+      //   <input name="lastname" type="text" />
+      //   <label for="password">Password</label>
+      //   <input name="password" type="password" />
+      //   <input className="btn" type="submit" value="Sign Up" />
+      //   </form>
+      // </div>
     );
   }
 }

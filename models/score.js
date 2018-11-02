@@ -1,12 +1,12 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const Score = sequelize.define("Score", {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
             validation: {
-              isAlphanumeric: true,
-              len: [40]
+                isAlphanumeric: true,
+                len: [40]
             }
         },
         levelOne: {
@@ -18,12 +18,11 @@ module.exports = function(sequelize, DataTypes) {
         levelThree: {
             type: DataTypes.JSON
         }
-    },
-    {
+    }, {
         paranoid: true
     })
 
-    Score.associate = function(models) {
+    Score.associate = function (models) {
         Score.belongsTo(models.User, {
             foreignKey: {
                 allowNull: true
