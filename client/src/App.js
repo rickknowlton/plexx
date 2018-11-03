@@ -21,6 +21,22 @@ class App extends Component {
     .catch(err => console.log(err));
   };
 
+  handleCreateUser = (event) => {
+    event.preventDefault();
+    API.addUser({
+      userName: this.userName,
+      password: this.password,
+      email: this.email
+    })
+    .then(function(response) {
+      console.log(response.data.id);
+      API.setEmptyScores({
+        UserId: response.data.id
+      })
+    })
+    .catch(err => console.log(err));
+  };
+
   // Get logged in userData
   getCurrentUser = (event) => {
     event.preventDefault();
@@ -69,20 +85,24 @@ class App extends Component {
           <button onClick={this.handleUpdateScore}>set user score</button>
           <button onClick={this.handleGetScores}>get all scores</button>
         </div>
+        <div>
+          <form>
+              <label>
+                User Name:
+                <input type='text' name='userName' />
+              </label>
+              <label>
+                Email Address:
+                <input type='email' name='email' />
+              </label>
+              <label>
+                Password:
+                <input type='text' name='password' />
+              </label>
+              <input type='submit' value = 'CreateUser' />
+          </form>
+        </div>   
       </div>
-      // <div className="SignUp">
-      //   <form id="signup" name="signup" method="post" action="/signup">
-      //   <label for="email">Email Address</label>
-      //   <input className="text" name="email" type="email" />
-      //   <label for="firstname">Firstname</label>
-      //   <input name="firstname" type="text" />
-      //   <label for="lastname">Lastname</label>
-      //   <input name="lastname" type="text" />
-      //   <label for="password">Password</label>
-      //   <input name="password" type="password" />
-      //   <input className="btn" type="submit" value="Sign Up" />
-      //   </form>
-      // </div>
     );
   }
 }
