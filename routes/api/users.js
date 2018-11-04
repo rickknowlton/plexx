@@ -3,10 +3,20 @@ const router = express.Router();
 const userController = require("../../controllers/userControllers");
 const db = require("../../models");
 const Sequelize = require("sequelize");
+const passport = require('passport');
 
 // Matches with "/api/user"
 router.route("/")
-    .post(userController.addNewUser)
+    .post(passport.authenticate("local-signup"), (req, res) => {
+        // req.user now contains the right user
+        console.log(`User ${req.user.email} signed up`);
+        res.json({
+            status: 'ok',
+            user: {
+                email: req.user.email
+            }
+        });
+    })
     .get(userController.getCurrentUser);
 
 module.exports = router;
