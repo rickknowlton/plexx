@@ -1,9 +1,11 @@
 //load bcrypt
 const bCrypt = require('bcrypt-nodejs');
+const db = require("../../models");
+const passport = require('passport');
 
-module.exports = function (passport, user) {
-    let User = user,
-        var LocalStrategy = require('passport-local').Strategy;
+module.exports = function () {
+    let User = db.User,
+        LocalStrategy = require('passport-local').Strategy;
 
     passport.serializeUser(function (user, done) {
         done(null, user.id);
@@ -49,10 +51,15 @@ module.exports = function (passport, user) {
                     let data = {
                         email: email,
                         password: userPassword,
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname
+                        userName: req.body.userName
                     };
 
+                    // console.log("passport user data: " + data);
+
+                    // db.User
+                    // .create(data)
+                    // .then(dbModel => res.json(dbModel))
+                    // .catch(err => res.status(422).json(err));
 
                     User.create(data).then(function (newUser, created) {
                         if (!newUser) {

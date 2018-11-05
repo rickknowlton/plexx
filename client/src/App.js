@@ -2,39 +2,39 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import API from "./utils/API";
+import { Input, FormBtn } from "./components/Form";
+// import { Redirect } from "react-router-dom";
 
 class App extends Component {
+  state = {
+    userName: "",
+    email: "",
+    password: ""
+  }
 
-  handleAddUser = (event) => {
-    event.preventDefault();
-    API.addUser({
-        userName: "Another Guy",
-        password: "stuffs",
-        email: "something@plexx.com"
-    })
-    .then(function(response) {
-      console.log(response.data.id);
-      API.setEmptyScores({
-        UserId: response.data.id
-      })
-    })
-    .catch(err => console.log(err));
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   };
 
   handleCreateUser = (event) => {
     event.preventDefault();
-    API.addUser({
-      userName: this.userName,
-      password: this.password,
-      email: this.email
-    })
-    .then(function(response) {
-      console.log(response.data.id);
-      API.setEmptyScores({
-        UserId: response.data.id
+    if (this.state.userName && this.state.password && this.state.email) {
+      API.addUser({
+        userName: this.state.userName,
+        password: this.state.password,
+        email: this.state.email
       })
-    })
-    .catch(err => console.log(err));
+      .then(function(response) {
+        console.log(response.data.id);
+        API.setEmptyScores({
+          UserId: response.data.id
+        })
+      })
+      .catch(err => console.log(err));
+    }
   };
 
   // Get logged in userData
@@ -86,21 +86,32 @@ class App extends Component {
           <button onClick={this.handleGetScores}>get all scores</button>
         </div>
         <div>
-          <form>
-              <label>
-                User Name:
-                <input type='text' name='userName' />
-              </label>
-              <label>
-                Email Address:
-                <input type='email' name='email' />
-              </label>
-              <label>
-                Password:
-                <input type='text' name='password' />
-              </label>
-              <input type='submit' value = 'CreateUser' />
-          </form>
+        <form>
+              <Input
+                value={this.state.userName}
+                onChange={this.handleInputChange}
+                name="userName"
+                placeholder="SteveHarwell420 (required)"
+              />
+              <Input
+                value={this.state.email}
+                onChange={this.handleInputChange}
+                name="email"
+                placeholder="steve@smashmouth.com (required)"
+              />
+              <Input
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                name="password"
+                placeholder="(required)"
+              />
+              <FormBtn
+                disabled={!(this.state.userName && this.state.email && this.state.password)}
+                onClick={this.handleCreateUser}
+              >
+                Create Account
+              </FormBtn>
+            </form>
         </div>   
       </div>
     );
