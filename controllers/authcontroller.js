@@ -1,21 +1,9 @@
-// module.exports = {
+const passport = require('passport');
 
-//     signup = function (req, res) {
-//         res.render('signup');
-//     },
+module.exports = {
 
-//     signin = function (req, res) {
-//         res.render('signin');
-//     },
+    createUser: function(req) {
+        console.log(req.body);
+    }
 
-//     dashboard = function (req, res) {
-//         res.render('dashboard');
-//     },
-
-//     logout = function (req, res) {
-//         req.session.destroy(function (err) {
-//             res.redirect('/');
-//         });
-//     }
-
-// };
+};

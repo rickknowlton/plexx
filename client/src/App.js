@@ -1,121 +1,21 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import API from "./utils/API";
-import { Input, FormBtn } from "./components/Form";
-// import { Redirect } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import NoMatch from "./pages/NoMatch";
 
-class App extends Component {
-  state = {
-    userName: "",
-    email: "",
-    password: ""
-  }
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleCreateUser = (event) => {
-    event.preventDefault();
-    if (this.state.userName && this.state.password && this.state.email) {
-      API.addUser({
-        userName: this.state.userName,
-        password: this.state.password,
-        email: this.state.email
-      })
-      .then(function(response) {
-        console.log(response.data.id);
-        API.setEmptyScores({
-          UserId: response.data.id
-        })
-      })
-      .catch(err => console.log(err));
-    }
-  };
-
-  // Get logged in userData
-  getCurrentUser = (event) => {
-    event.preventDefault();
-    API.getUser().then(res => {
-      console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
-      // this.updateScore();
-    });
-  };
-
-  // Get all scores
-  handleGetScores = (event) => {
-    event.preventDefault();
-    API.getScores().then(data => {
-      console.log(`scores: ${data.data.scores}`);
-    })
-  }
-
-  // Update Users score
-  // replace string with UserId in dataBase to update scores
-  handleUpdateScore = (event) => {
-    event.preventDefault();
-    API.updateScore("2afeb600-6ca2-41bf-9092-603f57e2a2fa", 
-      {
-        levelOne: 1,
-        levelTwo: 2,
-        levelThree: 3
-      }
-    )
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-
-        <button onClick={this.handleAddUser}>add user</button>
-        <button onClick={this.getCurrentUser}>get current user</button>
-
-        <div>
-          <button onClick={this.handleUpdateScore}>set user score</button>
-          <button onClick={this.handleGetScores}>get all scores</button>
-        </div>
-        <div>
-        <form>
-              <Input
-                value={this.state.userName}
-                onChange={this.handleInputChange}
-                name="userName"
-                placeholder="SteveHarwell420 (required)"
-              />
-              <Input
-                value={this.state.email}
-                onChange={this.handleInputChange}
-                name="email"
-                placeholder="steve@smashmouth.com (required)"
-              />
-              <Input
-                value={this.state.password}
-                onChange={this.handleInputChange}
-                name="password"
-                placeholder="(required)"
-              />
-              <FormBtn
-                disabled={!(this.state.userName && this.state.email && this.state.password)}
-                onClick={this.handleCreateUser}
-              >
-                Create Account
-              </FormBtn>
-            </form>
-        </div>   
-      </div>
-    );
-  }
-}
+const App = () => (
+  	<div>
+		<Router>
+			<div>
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route exact path="/register" component={Register} />
+					<Route component={NoMatch} />
+				</Switch>
+			</div>
+		</Router>
+	</div>
+);
 
 export default App;
