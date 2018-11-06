@@ -37,6 +37,9 @@ const routes = require('./routes'),
 // Define API routes here
 app.use(routes);
 
+// app.use(apiRoutes)
+// 
+
 //load passport strategies
 require('./config/passport/passport')(passport,db.user);
 
@@ -47,13 +50,13 @@ app.get("*", (req, res) => {
 });
 
 var syncOptions = {
-  force: true
+  force: false
 };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
+  syncOptions.force = false;
 }
 
 // Starting the server, syncing our models ------------------------------------/

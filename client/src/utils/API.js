@@ -6,6 +6,13 @@ export default {
     return axios.post("/api/user", userData);
   }, 
 
+  // Login user
+  login: function(userData) {
+    console.log("login user request");
+    console.log(userData);
+    return axios.post("/api/login", userData);
+  },
+
   // Get current User
   getUser: function() {
     return axios.get("/api/user");

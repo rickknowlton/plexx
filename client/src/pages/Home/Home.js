@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import logo from "../../logo.svg";
 import "../../App.css";
 import API from "../../utils/API";
+import { Input, FormBtn } from "../../components/Form";
 
 class Home extends Component {
     state = {
@@ -35,6 +36,18 @@ class Home extends Component {
         })
         .catch(err => console.log(err));
         }
+    };
+
+    handleLogin = (event) => {
+        event.preventDefault();
+        API.login({
+            email: this.state.email,
+            password: this.state.password,
+        }).then(res => {
+            console.log("Logged in as:");
+            console.log(`username: ${res.data.user.userName}\nid: ${res.data.user.id}`);
+        })
+        .catch(err => console.log(err));
     };
 
     // Get logged in userData
@@ -79,6 +92,37 @@ class Home extends Component {
             </p>
 
             <button><a href="/register">Register</a></button>
+            <button onClick={this.getCurrentUser}>get curent user</button>
+
+            <div>
+            <form>
+                <Input
+                    label="Email"
+                    value={this.state.email}
+                    onChange={this.handleInputChange}
+                    name="email"
+                    placeholder="blooby (required)"
+                />
+                <Input
+                    label="Password"
+                    value={this.state.password}
+                    onChange={this.handleInputChange}
+                    name="password"
+                    placeholder="(required)"
+                />
+                <FormBtn
+                disabled={
+                    !(
+                        this.state.email &&
+                        this.state.password
+                    )
+                }
+                onClick={this.handleLogin}
+                >
+                Login
+                </FormBtn>
+            </form>
+            </div>
 
         </div>
         );
