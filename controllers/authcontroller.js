@@ -1,21 +1,13 @@
-// module.exports = {
+const passport = require('passport');
 
-//     signup = function (req, res) {
-//         res.render('signup');
-//     },
+module.exports = {
 
-//     signin = function (req, res) {
-//         res.render('signin');
-//     },
 
-//     dashboard = function (req, res) {
-//         res.render('dashboard');
-//     },
+    // NOT WOKRING CORRECTLY
+    login: (req, res) => {
+        passport.authenticate('local-signin')(req, res)
+        // req.user now contains the right user
+        res.json({ user: req.user });
+    }
 
-//     logout = function (req, res) {
-//         req.session.destroy(function (err) {
-//             res.redirect('/');
-//         });
-//     }
-
-// };
+};

@@ -98,7 +98,7 @@ module.exports = function () {
 
         function (req, email, password, done) {
 
-            let User = user;
+            // let User = user;
 
             let isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password, userpass);

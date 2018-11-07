@@ -37,6 +37,9 @@ const routes = require('./routes'),
 // Define API routes here
 app.use(routes);
 
+// app.use(apiRoutes)
+// 
+
 //load passport strategies
 require('./config/passport/passport')(passport,db.user);
 
