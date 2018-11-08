@@ -54,13 +54,6 @@ module.exports = function () {
                         userName: req.body.userName
                     };
 
-                    // console.log("passport user data: " + data);
-
-                    // db.User
-                    // .create(data)
-                    // .then(dbModel => res.json(dbModel))
-                    // .catch(err => res.status(422).json(err));
-
                     User.create(data).then(function (newUser, created) {
                         if (!newUser) {
                             return done(null, false);

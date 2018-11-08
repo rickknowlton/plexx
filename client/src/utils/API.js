@@ -13,16 +13,8 @@ export default {
     return axios.post("/api/login", userData);
   },
 
-  logout: (req, res) => {
-    // return 
-      axios.post("/api/logout", () => {
-        if (req.user) {
-          req.logout()
-          res.json({ msg: 'logging out' })
-        } else {
-            res.json({ msg: 'no user to log out' })
-        }
-      })
+  logout: () => {
+    return axios.get("/api/logout");
     },
 
   // Get current User

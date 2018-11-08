@@ -3,6 +3,7 @@ import logo from "../../logo.svg";
 import "../../App.css";
 import API from "../../utils/API";
 import { Input, FormBtn } from "../../components/Form";
+import axios from "axios";
 
 class Home extends Component {
     state = {

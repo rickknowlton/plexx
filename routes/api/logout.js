@@ -5,9 +5,7 @@ const passport = require('passport');
 
 // Matches with "/api/logout"
 router.route("/")
-    // .post(authController.login)
-
-    .post((req, res) => {
+    .get((req, res) => {
         if (req.user) {
             req.logout()
             res.send({ msg: 'logging out' })
