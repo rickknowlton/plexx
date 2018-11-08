@@ -29,8 +29,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Require API routes
-const routes = require('./routes'),
-  authRoute = require('./routes/auth.js');
+const routes = require('./routes');
+// const authRoute = require('./routes/auth.js');
 
 
 

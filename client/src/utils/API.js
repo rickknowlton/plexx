@@ -13,6 +13,10 @@ export default {
     return axios.post("/api/login", userData);
   },
 
+  logout: () => {
+    return axios.get("/api/logout");
+    },
+
   // Get current User
   getUser: function() {
     return axios.get("/api/user");

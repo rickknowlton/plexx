@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Container, Nav, Footer, Modal } from '../../m-components'
 import Game from '../../components/Game';
-import '../../css/container.css'
+import '../../css/container.css';
 
 class App extends Component {
 
