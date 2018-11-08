@@ -9,7 +9,13 @@ class Home extends Component {
     state = {
         userName: "",
         email: "",
-        password: ""
+        password: "",
+        loggedIn: false,
+        displayName: null
+    }
+
+    componentDidMount() {
+        this.getCurrentUser();
     }
 
     handleInputChange = event => {
@@ -63,8 +69,18 @@ class Home extends Component {
     getCurrentUser = (event) => {
         event.preventDefault();
         API.getUser().then(res => {
-        console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
-        // this.updateScore();
+            if (res.data.user) {
+                console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
+                this.setState({
+                    loggedIn: true,
+                    displayName: res.data.username
+                })
+            } else {
+                this.setState({
+                    loggedIn: false,
+                    displayName: null
+                })
+            }
         });
     };
 
