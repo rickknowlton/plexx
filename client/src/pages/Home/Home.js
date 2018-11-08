@@ -50,6 +50,14 @@ class Home extends Component {
         .catch(err => console.log(err));
     };
 
+    handleLogout = (event) => {
+        event.preventDefault();
+        API.logout()
+        .then(res => {
+            console.log(res.data);
+        })
+    }
+
     // Get logged in userData
     getCurrentUser = (event) => {
         event.preventDefault();
@@ -91,8 +99,15 @@ class Home extends Component {
                 To get started, edit <code>src/App.js</code> and save to reload.
             </p>
 
-            <button><a href="/register">Register</a></button>
-            <button onClick={this.getCurrentUser}>get curent user</button>
+            <div>
+                <button><a href="/register">Register</a></button>
+                <button onClick={this.getCurrentUser}>get curent user</button>
+                <button><a href="/game">Game Page</a></button>
+            </div>
+
+            <div>
+                <button onClick={this.handleLogout}>logout</button>
+            </div>
 
             <div>
             <form>

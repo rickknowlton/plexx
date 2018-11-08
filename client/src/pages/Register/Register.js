@@ -79,7 +79,10 @@ class Register extends Component {
                 To get started, edit <code>src/App.js</code> and save to reload.
             </p>
 
-            <button onClick={this.handleAddUser}>add user</button>
+            <div>
+                <button><a href="/">Home Page</a></button>
+                <button><a href="/game">Game Page</a></button>
+            </div>
 
             <div>
             <form>
