@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "plexx",
+    "database": "react",
     "host": "localhost",
     "dialect": "mysql"
   },

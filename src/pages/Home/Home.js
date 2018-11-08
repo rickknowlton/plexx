@@ -3,6 +3,7 @@ import logo from "../../logo.svg";
 import "../../App.css";
 import API from "../../utils/API";
 import { Input, FormBtn } from "../../components/Form";
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
     state = {
@@ -130,56 +131,64 @@ class Home extends Component {
 
     render() {
         return (
-        <div className="App">
-            <div className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h2>Welcome to React</h2>
-            </div>
-            <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
+            <div className="App">
+                <div className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h2>Welcome to React</h2>
+                </div>
+                <p className="App-intro">
+                    To get started, edit <code>src/App.js</code> and save to reload.
+                </p>
 
-            <div>
-                <button><a href="/register">Register</a></button>
-                <button onClick={this.getUser}>get curent user</button>
-                <button><a href="/game">Game Page</a></button>
-            </div>
-
-            <div>
-                <button onClick={this.handleLogout}>logout</button>
-            </div>
-
-            <div>
-            <form>
-                <Input
-                    label="Email"
-                    value={this.state.email}
-                    onChange={this.handleInputChange}
-                    name="email"
-                    placeholder="blooby (required)"
-                />
-                <Input
-                    label="Password"
-                    value={this.state.password}
-                    onChange={this.handleInputChange}
-                    name="password"
-                    placeholder="(required)"
-                />
-                <FormBtn
-                disabled={
-                    !(
-                        this.state.email &&
-                        this.state.password
-                    )
+                { this.state.loggedIn ?
+                    <div>
+                        <ul>
+                            <li>{ this.displayName }</li>
+                            <li>
+                                <Link to="#" onClick={ this.handleLogout }>logout</Link>
+                            </li>
+                        </ul>
+                    </div>
+                    :
+                    <div>
+                        <div>
+                            <ul>
+                                <li><Link to="/game">Game Page</Link></li>
+                                <li><Link to="/register">register</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <form>
+                                <Input
+                                    label="Email"
+                                    value={this.state.email}
+                                    onChange={this.handleInputChange}
+                                    name="email"
+                                    placeholder="blooby (required)"
+                                />
+                                <Input
+                                    label="Password"
+                                    value={this.state.password}
+                                    onChange={this.handleInputChange}
+                                    name="password"
+                                    placeholder="(required)"
+                                />
+                                <FormBtn
+                                    disabled={
+                                        !(
+                                            this.state.email &&
+                                            this.state.password
+                                        )
+                                    }
+                                    onClick={this.handleLogin}
+                                    >
+                                    Log me in
+                                </FormBtn>
+                            </form>
+                        </div>
+                    </div>
                 }
-                onClick={this.handleLogin}
-                >
-                Log me in
-                </FormBtn>
-            </form>
             </div>
-
-        </div>
         );
     }
 }
