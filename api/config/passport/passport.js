@@ -83,15 +83,13 @@ module.exports = function () {
     passport.use('local-signin', new LocalStrategy(
 
         {
-            // by default, local strategy uses username and password, we will override with email
-            usernameField: 'email',
+            // by default, local strategy uses username and password
+            usernameField: 'userName',
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
 
-        function (req, email, password, done) {
-
-            // let User = user;
+        function (req, username, password, done) {
 
             let isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password, userpass);
@@ -99,13 +97,13 @@ module.exports = function () {
 
             User.findOne({
                 where: {
-                    email: email
+                    userName: username
                 }
             }).then(function (user) {
 
                 if (!user) {
                     return done(null, false, {
-                        message: 'Email does not exist'
+                        message: 'User name does not exist'
                     });
                 }
 

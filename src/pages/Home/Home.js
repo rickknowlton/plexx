@@ -37,7 +37,8 @@ class Home extends Component {
     handleLogin = (event) => {
         event.preventDefault();
         API.login({
-            email: this.state.email,
+            // email: this.state.email,
+            userName: this.state.userName,
             password: this.state.password,
         }).then(res => {
             console.log("Logged in as:");
@@ -45,7 +46,10 @@ class Home extends Component {
             this.setState({
                 // redirectTo: "/game"
                 loggedIn: true,
-                displayName: res.data.user.userName
+                displayName: res.data.user.userName,
+                userName: "",
+                password: "",
+                email: ""
             })
         })
         .catch(err => console.log(err));
@@ -153,16 +157,16 @@ class Home extends Component {
                         <div>
                             <form>
                                 <Input
-                                    label="Email"
-                                    type="email"
-                                    value={this.state.email}
+                                    label="Username: "
+                                    type="username"
+                                    value={this.state.userName}
                                     onChange={this.handleInputChange}
-                                    name="email"
-                                    auto="email"
-                                    placeholder="blooby@plexx.com"
+                                    name="userName"
+                                    auto="current-username"
+                                    placeholder="blooby"
                                 />
                                 <Input
-                                    label="Password"
+                                    label="Password: "
                                     type="password"
                                     value={this.state.password}
                                     onChange={this.handleInputChange}
@@ -172,13 +176,13 @@ class Home extends Component {
                                 <FormBtn
                                     disabled={
                                         !(
-                                            this.state.email &&
+                                            this.state.userName &&
                                             this.state.password
                                         )
                                     }
                                     onClick={this.handleLogin}
                                 >
-                                    Login
+                                    Sign In
                                 </FormBtn>
                             </form>
                         </div>
