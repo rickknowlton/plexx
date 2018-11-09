@@ -38,7 +38,7 @@ class Home extends Component {
         event.preventDefault();
         API.login({
             // email: this.state.email,
-            userName: this.state.userName,
+            userName: this.state.userName.trim(),
             password: this.state.password,
         }).then(res => {
             console.log("Logged in as:");
@@ -143,9 +143,11 @@ class Home extends Component {
                 <div>
                     <Link to="/game">Plex Game Page</Link>
                 </div>
+                {!this.state.loggedIn &&
                 <div>
                     <Link to="/register">register</Link>
                 </div>
+                }
 
                 {this.state.loggedIn ?
                     <div>

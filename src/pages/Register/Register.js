@@ -27,9 +27,9 @@ class Register extends Component {
         if (this.state.userName && this.state.password && this.state.email) {
             if (this.state.password === this.state.confirmPassword) {
                 API.addUser({
-                    userName: this.state.userName,
+                    userName: this.state.userName.trim(),
                     password: this.state.password,
-                    email: this.state.email
+                    email: this.state.email.trim()
                 })
                 .then(function(response) {
                     console.log("user");
