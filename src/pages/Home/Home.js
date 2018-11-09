@@ -3,20 +3,28 @@ import logo from "../../logo.svg";
 import "../../App.css";
 import API from "../../utils/API";
 import { Input, FormBtn } from "../../components/Form";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Home extends Component {
-    state = {
-        userName: "",
-        email: "",
-        password: "",
-        loggedIn: false,
-        displayName: null
+    constructor(props) {
+        super(props);
+        this.getUserAtPageLoad = this.getUserAtPageLoad.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
+        this.state = {
+            userName: "",
+            email: "",
+            password: "",
+            loggedIn: false,
+            displayName: null,
+            redirectTo: null,
+        }
     }
 
     componentDidMount() {
         console.log("component mounted");
-        this.getCurrentUser();
+        this.getUserAtPageLoad();
     }
 
     handleInputChange = event => {
@@ -24,26 +32,6 @@ class Home extends Component {
         this.setState({
             [name]: value
         });
-    };
-
-    handleCreateUser = (event) => {
-        event.preventDefault();
-        if (this.state.userName && this.state.password && this.state.email) {
-        API.addUser({
-            userName: this.state.userName,
-            password: this.state.password,
-            email: this.state.email
-        })
-        .then(function(response) {
-            console.log("user");
-            console.log(response.data);
-            console.log("user id: " + response.data.user.id);
-            API.setEmptyScores({
-            UserId: response.data.user.id
-            })
-        })
-        .catch(err => console.log(err));
-        }
     };
 
     handleLogin = (event) => {
@@ -54,6 +42,11 @@ class Home extends Component {
         }).then(res => {
             console.log("Logged in as:");
             console.log(`username: ${res.data.user.userName}\nid: ${res.data.user.id}`);
+            this.setState({
+                // redirectTo: "/game"
+                loggedIn: true,
+                displayName: res.data.user.userName
+            })
         })
         .catch(err => console.log(err));
     };
@@ -62,14 +55,16 @@ class Home extends Component {
         event.preventDefault();
         API.logout()
         .then(res => {
+            this.setState({
+                loggedIn: false
+            })
             console.log(res.data);
         })
     }
 
     // Get logged in userData
-    getCurrentUser = (event) => {
+    getUserAtPageLoad = () => {
         API.getUser().then(res => {
-            // console.log(res);
             if (res.data.loggedIn) {
                 console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
                 this.setState({
@@ -117,61 +112,62 @@ class Home extends Component {
     }
 
     // Update Users score
-    // replace string with UserId in dataBase to update scores
+    // Primitive - needs logic to update specific level score
     handleUpdateScore = (event) => {
         event.preventDefault();
-        API.updateScore("2afeb600-6ca2-41bf-9092-603f57e2a2fa", 
-            {
-                levelOne: 1,
-                levelTwo: 2,
-                levelThree: 3
-            }
-        )
+        API.getUser().then(res => {
+            API.updateScore(res.data.id, 
+                {
+                    levelOne: 1,
+                    levelTwo: 2,
+                    levelThree: 3
+                }
+            )
+        })
     };
 
     render() {
+        if (this.state.redirectTo) {
+			return <Redirect to={{ pathname: this.state.redirectTo }} />
+        }
         return (
             <div className="App">
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
-                    <h2>Welcome to React</h2>
+                    <h2>Home Page</h2>
                 </div>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+                <div>
+                    <Link to="/game">Plex Game Page</Link>
+                </div>
+                <div>
+                    <Link to="/register">register</Link>
+                </div>
 
-                { this.state.loggedIn ?
+                {this.state.loggedIn ?
                     <div>
-                        <ul>
-                            <li>{ this.displayName }</li>
-                            <li>
-                                <Link to="#" onClick={ this.handleLogout }>logout</Link>
-                            </li>
-                        </ul>
+                        <h1>{this.state.displayName}</h1>
+                        <Link to="#" onClick={this.handleLogout}>logout</Link>
                     </div>
                     :
                     <div>
                         <div>
-                            <ul>
-                                <li><Link to="/game">Game Page</Link></li>
-                                <li><Link to="/register">register</Link></li>
-                            </ul>
-                        </div>
-                        <div>
                             <form>
                                 <Input
                                     label="Email"
+                                    type="email"
                                     value={this.state.email}
                                     onChange={this.handleInputChange}
                                     name="email"
-                                    placeholder="blooby (required)"
+                                    auto="email"
+                                    placeholder="blooby@plexx.com"
                                 />
                                 <Input
                                     label="Password"
+                                    type="password"
                                     value={this.state.password}
                                     onChange={this.handleInputChange}
                                     name="password"
-                                    placeholder="(required)"
+                                    auto="current-password"
                                 />
                                 <FormBtn
                                     disabled={
@@ -181,8 +177,8 @@ class Home extends Component {
                                         )
                                     }
                                     onClick={this.handleLogin}
-                                    >
-                                    Log me in
+                                >
+                                    Login
                                 </FormBtn>
                             </form>
                         </div>

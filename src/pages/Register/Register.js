@@ -3,12 +3,15 @@ import logo from "../../logo.svg";
 import "../../App.css";
 import API from "../../utils/API";
 import { Input, FormBtn } from "../../components/Form";
+import { Link, Redirect } from "react-router-dom";
 
 class Register extends Component {
     state = {
         userName: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: "",
+        redirectTo: null
     }
 
     handleInputChange = event => {
@@ -22,98 +25,93 @@ class Register extends Component {
         event.preventDefault();
         console.log("create user btn clicked");
         if (this.state.userName && this.state.password && this.state.email) {
-        API.addUser({
-            userName: this.state.userName,
-            password: this.state.password,
-            email: this.state.email
-        })
-        .then(function(response) {
-            console.log("user");
-            console.log(response.data);
-            console.log("user id: " + response.data.user.id);
-            API.setEmptyScores({
-            UserId: response.data.user.id
-            })
-        })
-        .catch(err => console.log(err));
+            if (this.state.password === this.state.confirmPassword) {
+                API.addUser({
+                    userName: this.state.userName,
+                    password: this.state.password,
+                    email: this.state.email
+                })
+                .then(function(response) {
+                    console.log("user");
+                    console.log(response.data);
+                    console.log("user id: " + response.data.user.id);
+                    API.setEmptyScores({
+                    UserId: response.data.user.id
+                    })
+                })
+                .then(() => {
+                    this.setState({
+                        redirectTo: "/"
+                    })
+                })
+                .catch(err => console.log(err));
+            } else {
+                console.log("passwords do not match");
+            }
         }
     };
 
-    // Get logged in userData
-    getCurrentUser = (event) => {
-        event.preventDefault();
-        API.getUser().then(res => {
-        console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
-        // this.updateScore();
-        });
-    };
-
-    // Get all scores
-    handleGetScores = (event) => {
-        event.preventDefault();
-        API.getScores().then(data => {
-        console.log(`scores: ${data.data.scores}`);
-        })
-    }
-
-    // Update Users score
-    // replace string with UserId in dataBase to update scores
-    handleUpdateScore = (event) => {
-        event.preventDefault();
-        API.updateScore("2afeb600-6ca2-41bf-9092-603f57e2a2fa", 
-            {
-                levelOne: 1,
-                levelTwo: 2,
-                levelThree: 3
-            }
-        )
-    };
-
     render() {
+        if (this.state.redirectTo) {
+			return <Redirect to={{ pathname: this.state.redirectTo }} />
+		}
         return (
         <div className="App">
             <div className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <h2>Welcome to React</h2>
+                <h2>Register Page</h2>
             </div>
-            <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
 
             <div>
-                <button><a href="/">Home Page</a></button>
-                <button><a href="/game">Game Page</a></button>
+                <Link to="/">Home Page</Link>
+            </div>
+            <div>
+                <Link to="/game">Game Page</Link>
             </div>
 
             <div>
             <form>
                 <Input
                     label="Username"
+                    type="text"
                     value={this.state.userName}
                     onChange={this.handleInputChange}
                     name="userName"
-                    placeholder="SteveHarwell420 (required)"
+                    auto="new-username"
+                    placeholder="SteveHarwell420"
                 />
                 <Input
                     label="Email"
+                    type="email"
                     value={this.state.email}
                     onChange={this.handleInputChange}
                     name="email"
-                    placeholder="steve@smashmouth.com (required)"
+                    auto="new-email"
+                    placeholder="steve@smashmouth.com"
                 />
                 <Input
                     label="Password"
+                    type="password"
                     value={this.state.password}
                     onChange={this.handleInputChange}
                     name="password"
-                    placeholder="(required)"
+                    auto="new-password"
+                />
+                <Input
+                    label="Confirm Password"
+                    type="password"
+                    value={this.state.confirmPassword}
+                    onChange={this.handleInputChange}
+                    name="confirmPassword"
+                    auto="new-password"
                 />
                 <FormBtn
                 disabled={
                     !(
                         this.state.userName &&
                         this.state.email &&
-                        this.state.password
+                        this.state.password &&
+                        this.state.confirmPassword
                     )
                 }
                 onClick={this.handleCreateUser}
