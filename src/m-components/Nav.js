@@ -43,18 +43,18 @@ export const Nav = props => (
         <ul className="right">
           <li>
             <Input
-              label="Username: "
-              type="username"
+              label="Username:"
+              type="text"
               value={props.userName}
               onChange={props.handleInputChange}
               name="userName"
               autoComplete="current-username"
-              placeholder="blooby"
+              // placeholder="blooby"
             />
           </li>
           <li>
             <Input
-              label="Password: "
+              label="Password:"
               type="password"
               value={props.password}
               onChange={props.handleInputChange}
@@ -82,7 +82,7 @@ export const Nav = props => (
         </ul>
       }
 
-      <ul className="right hide-on-med-and-down">
+      {/* <ul className="right hide-on-med-and-down">
         <li><a className="dropdown-trigger" data-target='dropdown1' href="#!"><i className="material-icons">more_vert</i></a></li>
       </ul>
       
@@ -93,7 +93,7 @@ export const Nav = props => (
         <li><a href="#!">three</a></li>
         <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
         <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
-      </ul>
+      </ul> */}
 
     </div>
   </nav>
