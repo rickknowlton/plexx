@@ -7,7 +7,7 @@ import Modal from "../../components/Modal";
 
 class MainPage extends Component {
   state = {
-    show: false
+    show: true
   };
 
   showModal = () => {
@@ -21,13 +21,6 @@ class MainPage extends Component {
     return (
       <Container>
         <Nav title="plexx" />
-
-        <input
-          className="waves-effect waves-light btn cyan"
-          type="button"
-          onClick={this.showModal}
-          value="Show Modal"
-        />
 
         <Modal
           className="input-field"
