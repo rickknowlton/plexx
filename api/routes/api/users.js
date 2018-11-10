@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../../controllers/userControllers");
-const authController = require("../../controllers/authcontroller");
 const db = require("../../models");
 const Sequelize = require("sequelize");
 const passport = require('passport');
@@ -13,7 +12,6 @@ router.route("/")
         console.log(`User ${req.user.email} signed up`);
         res.json({ user: req.user });
     })
-    // .post(authController.createUser)
     .get(userController.getCurrentUser);
 
 module.exports = router;
