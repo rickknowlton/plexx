@@ -7,7 +7,7 @@ export const Nav = props => (
   <nav>
     <div className="nav-wrapper offset-s2 cyan accent-2 z-depth-5">
     {/* <a href="#" data-activates="mobile-demo" className="button-collapse show-on-large cyan accent-2"><i class="material-icons">menu</i></a> */}
-    <a href="#!" className="brand-logo offset-s2" target="#!">{props.title}</a>
+    <a href="/" className="brand-logo offset-s2">{props.title}</a>
 
       {props.loggedIn ?
       <ul className="right">
