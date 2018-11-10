@@ -24,7 +24,7 @@ COPY ./public ./public
 # COPY ./build ./build
 
 # Install dependencies ... package.json from ./api is now in the root of container (so it's referenced here!)
-RUN yarn install
+RUN npm install
 
 #RUN npm install -g react react-scripts
 
@@ -34,4 +34,4 @@ RUN node_modules/.bin/react-scripts build
 # NOTE: Heroku does not support specifying ports
 
 # Start the Node.js app on load
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
