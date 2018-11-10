@@ -19,6 +19,7 @@ class Home extends Component {
             loggedIn: false,
             displayName: null,
             redirectTo: null,
+            show: false
         }
     }
 
