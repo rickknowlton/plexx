@@ -34,4 +34,4 @@ RUN node_modules/.bin/react-scripts build
 # NOTE: Heroku does not support specifying ports
 
 # Start the Node.js app on load
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]
