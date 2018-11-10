@@ -49,7 +49,6 @@ export const Nav = props => (
               onChange={props.handleInputChange}
               name="userName"
               autoComplete="current-username"
-              // placeholder="blooby"
             />
           </li>
           <li>
@@ -65,12 +64,12 @@ export const Nav = props => (
           <li>
             <Button
               className="waves-effect waves-light cyan lighten-2 btn m-3"
-              // disabled={
-              //   !(
-              //       props.userName &&
-              //       props.password
-              //   )
-              // }
+              disabled={
+                !(
+                    props.userName &&
+                    props.password
+                )
+              }
               onClick={props.handleLogin}
             >
               Sign in
