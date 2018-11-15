@@ -154,6 +154,7 @@ handleUpdateScore = (event) => {
         <Nav 
           title="plexx"
           userName={this.state.userName}
+          password={this.state.password}
           handleInputChange={this.handleInputChange}
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
