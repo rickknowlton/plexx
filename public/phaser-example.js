@@ -21,6 +21,9 @@ var layer;
 
 function create() {
 
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+       this.scale.pageAlignHorizontally = true;
+
     game.physics.startSystem(Phaser.Physics.P2JS);
 
     game.stage.backgroundColor = '#2d2d2d';

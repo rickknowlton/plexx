@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Container, Nav, Footer } from "../../m-components";
 import Game from "../../components/Game";
-import { Input } from "react-materialize";
+import { Input, Col, Card } from "react-materialize";
 import "../../css/container.css";
 import Modal from "../../components/Modal";
 import API from "../../utils/API";
@@ -151,6 +151,8 @@ handleUpdateScore = (event) => {
   render() {
     return (
       <Container>
+        <Row>
+        <Col s={12}>
         <Nav 
           title="plexx"
           userName={this.state.userName}
@@ -163,8 +165,10 @@ handleUpdateScore = (event) => {
           showSigninForm={this.state.showSigninForm}
           handleSigninForm={this.handleSigninForm}
         />
+        </Col>
+        </Row>
 
-        <Modal
+        {/* <Modal
           className="input-field"
           onClose={this.showModal}
           show={this.state.show}
@@ -174,10 +178,37 @@ handleUpdateScore = (event) => {
             <Input s={12} type="email" label="Email" />
             <Input s={12} type="password" label="Password" />
           </Row>
-        </Modal>
-
+        </Modal> */}
+        
+        <Row>
+        <Col s={12} className='grid-example'>
         <Game />
+        </Col>
+        {/* <Col s={3} className='grid-example'>
+        <Card className='chat grey darken-3' textClassName='white-text' title='Chat'>
+              </Card>
+              </Col>  */}
+
+
+              {/*Use your arrow keys to navigate your character thru the maze. Gather crystals to gain points and powerups. Faster times act as a multiplier to your score.*/}
+        </Row>
+        <Row>
+          <Col s={12} m={6}>
+          <Card className='scoreboard grey darken-3 z-depth-5' textClassName='white-text' title='Your Score:'>
+                666 
+            </Card>
+         </Col>
+          <Col s={12} m={6}>
+            <Card className='scoreboard grey darken-3 z-depth-5' textClassName='white-text' title='Highscore:'>
+                blooby - 666 
+            </Card>
+         </Col>
+        </Row>
+        <Row>
+          <Col s={12}>
         <Footer />
+        </Col>
+          </Row>
       </Container>
     );
   }

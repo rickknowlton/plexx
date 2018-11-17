@@ -12,7 +12,7 @@ export const Footer = props => (
               <div className="col l4 offset-l2 s12">
                 <h5>Connect with plexx</h5>
                 <ul>
-                  <li><a href="https://twitter.com/plexx" target="_blank"><i className="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+                  <li><a href="https://twitter.com/plexxapp" target="_blank"><i className="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
                   <li><a href="https://github.com/" target="_blank"><i className="fa fa-github" aria-hidden="true"></i> GitHub</a></li>
                 </ul>
               </div>

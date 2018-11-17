@@ -17,3 +17,9 @@ body {
 button {
   margin: 5px;
 }
+
+
+.scoreboard {
+  font-size: 10px;
+  font-family: 'Press Start 2P', cursive;
+}
