@@ -4,7 +4,7 @@ import { Input, Button } from "react-materialize";
 import { Link, Redirect } from "react-router-dom";
 import { Row, Container, Nav, Footer } from "../../m-components";
 import '../../css/container.css'
-import { Signup } from "../../components/SignUp";
+import { SignUp } from "../../components/SignUp";
 
 class Register extends Component {
     state = {
@@ -41,9 +41,10 @@ class Register extends Component {
                     })
                 })
                 .then(() => {
-                    this.setState({
-                        redirectTo: "/"
-                    })
+                    // this.setState({
+                    //     redirectTo: "/"
+                    // })
+                    window.location.href = "http://192.168.20.20:3000/";
                 })
                 .catch(err => console.log(err));
             } else {
@@ -62,7 +63,7 @@ class Register extends Component {
                     title="plexx"
                 />
                 <Row>
-                    <Signup
+                    <SignUp
                         userName={this.state.userName}
                         email={this.state.email}
                         password={this.state.password}

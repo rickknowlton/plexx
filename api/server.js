@@ -8,6 +8,7 @@ require('dotenv').config();
 const express = require("express"),
   passport = require('passport'),
   session = require('express-session'),
+  // flash = require('connect-flash'),
   path = require("path"),
   bodyParser = require("body-parser"),
   db = require("./models"),
@@ -31,6 +32,7 @@ app.use(session({
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+// app.use(flash());
 
 // staticly serve the React build artifacts if NOT in development mode
 if (process.env.NODE_ENV === "production") {

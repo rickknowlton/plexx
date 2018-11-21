@@ -24,61 +24,25 @@ export const Nav = props => (
         </li>
       </ul>
       :
-      (!props.showSigninForm) ?
       <ul className="right">
-        
         <li>
           <Button
               className="waves-effect waves-light cyan lighten-2 btn m-3"
-              onClick={props.handleSigninForm}
-            >
+              onClick={props.showModalWithSignIn}
+              >
               Sign in
             </Button>
         </li>
         <li>
-          <Link to="/register">register</Link>
+          <span 
+            className="clickable"
+            onClick={props.showModalWithSignUp}
+            >
+              register
+            </span>
+          {/* <Link to="/register">register</Link> */}
         </li>
       </ul>
-      :
-        <ul className="right">
-          <li>
-            <Input
-              label="Username:"
-              type="text"
-              value={props.userName}
-              onChange={props.handleInputChange}
-              name="userName"
-              autoComplete="current-username"
-            />
-          </li>
-          <li>
-            <Input
-              label="Password:"
-              type="password"
-              value={props.password}
-              onChange={props.handleInputChange}
-              name="password"
-              autoComplete="current-password"
-            />
-          </li>
-          <li>
-            <Button
-              className="waves-effect waves-light cyan lighten-2 btn m-3"
-              disabled={
-                !(
-                    props.userName &&
-                    props.password
-                )
-              }
-              onClick={props.handleLogin}
-            >
-              Sign in
-            </Button>
-          </li>
-          <li>
-            <Link to="/register">register</Link>
-          </li>
-        </ul>
       }
 
       {/* <ul className="right hide-on-med-and-down">
