@@ -10,7 +10,9 @@ router.route("/")
     .post(passport.authenticate("local-signup"), (req, res) => {
         // req.user now contains the right user
         console.log(`User ${req.user.email} signed up`);
-        res.json({ user: req.user });
+        res.json({ 
+            user: req.user
+        });
     })
     .get(userController.getCurrentUser);
 

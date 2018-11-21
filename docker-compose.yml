@@ -1,6 +1,16 @@
 version: '3.3'
 
 services:
+  db:
+    image: mysql:5.7
+    restart: "no"
+    #volumes:
+      #- ./data/mysql:/var/lib/mysql  # Mac/Linux: uncomment to persist data
+    network_mode: service:react       # share this network with React service
+    environment:
+      - MYSQL_DATABASE=react
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=root
   react:
     build: 
       context: .
@@ -17,16 +27,6 @@ services:
       - 3001:3001                     # defines port mapping for Express API server
       - 3306:3306                     # defines port mapping for MySql
     command: npm run react:start
-  db:
-    image: mysql:5.7
-    restart: "no"
-    #volumes:
-      #- ./data/mysql:/var/lib/mysql  # Mac/Linux: uncomment to persist data
-    network_mode: service:react       # share this network with React service
-    environment:
-      - MYSQL_DATABASE=react
-      - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=root
   api:
     build: 
       context: .

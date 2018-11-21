@@ -21,7 +21,7 @@ COPY ./api/ .
 RUN npm install -g nodemon
 
 # Install dependencies (if any) in package.json
-RUN npm install
+RUN npm install --no-bin-links
 
 # Expose port from container so host can access 3001
 EXPOSE 3001

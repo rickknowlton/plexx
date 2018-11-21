@@ -15,4 +15,6 @@ router.use("/login", loginRoute);
 
 router.use("/logout", logoutRoute);
 
+router.use("/logintest", loginRoute);
+
 module.exports = router;

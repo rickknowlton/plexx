@@ -18,11 +18,13 @@ class MainPage extends Component {
         userName: "",
         email: "",
         password: "",
+        confirmPassword: "",
         loggedIn: false,
         displayName: null,
         redirectTo: null,
-        show: false,
-        showSigninForm: false
+        showSigninForm: true,
+        failedLogin: false,
+        show: true
     }
 }
 
@@ -39,11 +41,25 @@ handleInputChange = event => {
 };
 
 handleSigninForm = (event) => {
-  event.preventDefault();
-  this.setState({
-      showSigninForm: true
-  })
+    event.preventDefault();
+    this.setState({
+        showSigninForm: true
+    })
 };
+
+toggleSignInRegisterForm = (event) => {
+    event.preventDefault();
+    if (this.state.showSigninForm) {
+        this.setState({
+            showSigninForm: false
+        })
+    }
+    else {
+        this.setState({
+            showSigninForm: true
+        })
+    }
+  };
 
 handleLogin = (event) => {
     event.preventDefault();
@@ -63,7 +79,14 @@ handleLogin = (event) => {
             email: ""
         })
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+        // console.log(err);
+        console.log("failed login");
+        this.setState({
+            password: "",
+            failedLogin: true
+        })
+    });
 };
 
 handleLogout = (event) => {
@@ -76,6 +99,37 @@ handleLogout = (event) => {
         console.log(res.data);
     })
 }
+
+handleCreateUser = (event) => {
+    event.preventDefault();
+    console.log("create user btn clicked");
+    if (this.state.userName && this.state.password && this.state.email) {
+        if (this.state.password === this.state.confirmPassword) {
+            API.addUser({
+                userName: this.state.userName.trim(),
+                password: this.state.password,
+                email: this.state.email.trim()
+            })
+            .then(function(response) {
+                console.log("user");
+                console.log(response.data);
+                console.log("user id: " + response.data.user.id);
+                API.setEmptyScores({
+                UserId: response.data.user.id
+                })
+            })
+            .then(() => {
+                // this.setState({
+                //     redirectTo: "/"
+                // })
+                window.location.href = "http://192.168.20.20:3000/";
+            })
+            .catch(err => console.log(err));
+        } else {
+            console.log("passwords do not match");
+        }
+    }
+};
 
 // Get logged in userData
 getUserAtPageLoad = () => {
@@ -142,9 +196,27 @@ handleUpdateScore = (event) => {
 };
 
   showModal = () => {
+    console.log("show modal clicked")
     this.setState({
-      ...this.state,
-      show: !this.state.show
+        ...this.state,
+        show: !this.state.show
+    });
+  };
+
+  showModalWithSignIn = () => {
+    console.log("show modal clicked")
+    this.setState({
+        ...this.state,
+        showSigninForm: true,
+        show: !this.state.show
+    });
+  };
+
+  showModalWithSignUp = () => {
+    this.setState({
+        ...this.state,
+        showSigninForm: false,
+        show: !this.state.show
     });
   };
 
@@ -153,21 +225,30 @@ handleUpdateScore = (event) => {
       <Container>
         <Nav 
           title="plexx"
-          userName={this.state.userName}
-          password={this.state.password}
-          handleInputChange={this.handleInputChange}
-          handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           displayName={this.state.displayName}
           loggedIn={this.state.loggedIn}
-          showSigninForm={this.state.showSigninForm}
-          handleSigninForm={this.handleSigninForm}
+          showModalWithSignIn={this.showModalWithSignIn}
+          showModalWithSignUp={this.showModalWithSignUp}
         />
 
         <Modal
           className="input-field"
           onClose={this.showModal}
           show={this.state.show}
+          email={this.state.email}
+          userName={this.state.userName}
+          password={this.state.password}
+          confirmPassword={this.state.confirmPassword}
+          handleInputChange={this.handleInputChange}
+          handleLogin={this.handleLogin}
+          handleLogout={this.handleLogout}
+          displayName={this.state.displayName}
+          loggedIn={this.state.loggedIn}
+          showSigninForm={this.state.showSigninForm}
+          toggleSignInRegisterForm={this.toggleSignInRegisterForm}
+          failedLogin={this.state.failedLogin}
+          handleCreateUser={this.handleCreateUser}
         >
           Register Your Account
           <Row>
@@ -179,6 +260,7 @@ handleUpdateScore = (event) => {
         <Game />
         <Footer />
       </Container>
+      
     );
   }
 }

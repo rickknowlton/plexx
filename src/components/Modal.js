@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { Input, Button } from "react-materialize";
+import { Link } from "react-router-dom";
 import '../css/container.css'
-
+import { SignIn } from './SignIn';
+import { SignUp } from './SignUp';
 
 const backdropStyle = {
    position: 'fixed',
@@ -66,36 +69,96 @@ export default class Modal extends React.Component {
        modalRoot.removeChild(this.element);
    }
 
+   matchPasswords
+
    render() {
-       var modalUI = (
-           <div style={backdropStyle}>
-               <div style={modalStyle}>
+        var modalUI = (
+            <div style={backdropStyle}>
+                <div style={modalStyle}>
+                    {this.props.failedLogin && (
+                        <span>Incorrect Credentials</span>
+                    )}
+                
+                    {this.props.showSigninForm ?
+                    <SignIn
+                        handleInputChange={this.props.handleInputChange}
+                        userName={this.props.userName}
+                        password={this.props.password}
+                    />
+                    :
+                    <SignUp
+                        handleCreateUser={this.props.handleCreateUser}
+                        handleInputChange={this.props.handleInputChange}
+                        userName={this.props.userName}
+                        email={this.props.email}
+                        password={this.props.password}
+                        confirmPassword={this.props.confirmPassword}
+                    />
+                    }
 
-                   {this.props.children}
-                   <div style={footerStyle}>
+                    <div style={footerStyle}>
 
-                   <div className="modal-footer footerStyle">
-                   <button className="waves-effect waves-light red lighten-2 btn" onClick={(e) => { this.onClose(e)}}>
-                           Cancel
-                       </button>
-                       <button className="waves-effect waves-light cyan lighten-2 btn m-3" onClick={(e) => { this.onClose(e)}}>
-                           Login
-                       </button>
-                       </div>
-               </div>
-               </div>
-           </div>
-       );
-       if (!this.props.show) {
-           return null;
-       }
-       return ReactDOM.createPortal (
-           modalUI,
-           this.element,
-       );
-   }
+                        <div className="modal-footer footerStyle">
+                            {this.props.showSigninForm ?
+                            <React.Fragment>
+                                <Button className="waves-effect waves-light red lighten-2 btn" onClick={(e) => { this.onClose(e)}}>
+                                    Cancel
+                                </Button>
+                                <Button
+                                    className="waves-effect waves-light cyan lighten-2 btn m-3"
+                                    disabled={
+                                        !(
+                                            this.props.userName &&
+                                            this.props.password
+                                        )
+                                    }
+                                    onClick={this.props.handleLogin}
+                                >
+                                    Sign in
+                                </Button>
+                                <span
+                                    className="clickable"
+                                    onClick={this.props.toggleSignInRegisterForm}
+                                >
+                                    Register
+                                </span>
+                            </React.Fragment>
+                            :
+                            <React.Fragment>
+                                <Button className="waves-effect waves-light red lighten-2 btn" onClick={(e) => { this.onClose(e)}}>
+                                    Cancel
+                                </Button>
+                                <Button
+                                    s={12}
+                                    disabled={
+                                        !(
+                                            this.props.userName &&
+                                            this.props.email &&
+                                            this.props.password &&
+                                            this.props.confirmPassword
+                                        )
+                                    }
+                                    onClick={this.props.handleCreateUser}
+                                    >
+                                    Create Account
+                                </Button>
+                            </React.Fragment>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+        if (!this.props.show) {
+            return null;
+        }
+        return ReactDOM.createPortal (
+            modalUI,
+            this.element,
+        );
+    }
 }
 
 Modal.propTypes = {
-   onClose: PropTypes.func.isRequired,
-   show: PropTypes.bool.isRequired }
+    onClose: PropTypes.func.isRequired,
+    show: PropTypes.bool.isRequired }

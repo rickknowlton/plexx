@@ -121,7 +121,7 @@ module.exports = function () {
 
             }).catch(function (err) {
 
-                console.log("Error:", err);
+                console.log("Error: ", err);
 
                 return done(null, false, {
                     message: 'Something went wrong with your Signin'

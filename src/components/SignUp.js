@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Input, Button } from "react-materialize";
 import { Link, Redirect } from "react-router-dom";
 
-export const Signup = props => (
+export const SignUp = props => (
 	<form className="white-text">
 	<Input
 		className="white-text"
@@ -44,9 +44,9 @@ export const Signup = props => (
 		value={props.confirmPassword}
 		onChange={props.handleInputChange}
 		name="confirmPassword"
-		auto="new-password"
+		// auto="new-password"
 	/>
-	<Button
+	{/* <Button
 		s={12}
 		disabled={
 			!(
@@ -59,6 +59,6 @@ export const Signup = props => (
 		onClick={props.handleCreateUser}
 		>
 		Create Account
-	</Button>
+	</Button> */}
 </form>
 );
