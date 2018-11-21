@@ -71,13 +71,13 @@ handleLogin = (event) => {
         console.log("Logged in as:");
         console.log(`username: ${res.data.user.userName}\nid: ${res.data.user.id}`);
         this.setState({
-            showSigninForm: false,
             loggedIn: true,
             displayName: res.data.user.userName,
             userName: "",
             password: "",
             email: ""
         })
+        this.toggleModal();
     })
     .catch(err => {
         // console.log(err);
@@ -105,6 +105,7 @@ handleCreateUser = (event) => {
     console.log("create user btn clicked");
     if (this.state.userName && this.state.password && this.state.email) {
         if (this.state.password === this.state.confirmPassword) {
+            const that = this;
             API.addUser({
                 userName: this.state.userName.trim(),
                 password: this.state.password,
@@ -114,15 +115,18 @@ handleCreateUser = (event) => {
                 console.log("user");
                 console.log(response.data);
                 console.log("user id: " + response.data.user.id);
+                that.toggleModal();
+                that.setState({
+                    userName: '',
+                    email: '',
+                    password:'',
+                    confirmPassword:'',
+                    loggedIn: true,
+                    displayName: response.data.user.userName
+                });
                 API.setEmptyScores({
                 UserId: response.data.user.id
                 })
-            })
-            .then(() => {
-                // this.setState({
-                //     redirectTo: "/"
-                // })
-                window.location.href = "http://192.168.20.20:3000/";
             })
             .catch(err => console.log(err));
         } else {
@@ -138,7 +142,8 @@ getUserAtPageLoad = () => {
             console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
             this.setState({
                 loggedIn: true,
-                displayName: res.data.username
+                displayName: res.data.username,
+                show: false
             })
         } else {
             this.setState({
@@ -152,10 +157,9 @@ getUserAtPageLoad = () => {
 
 // Get logged in userData
 getUser = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     console.log("Trying to get user");
     API.getUser().then(res => {
-        // console.log(res);
         if (res.data.loggedIn) {
             console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
             this.setState({
@@ -195,13 +199,13 @@ handleUpdateScore = (event) => {
     })
 };
 
-  showModal = () => {
+toggleModal = () => {
     console.log("show modal clicked")
     this.setState({
         ...this.state,
         show: !this.state.show
     });
-  };
+};
 
   showModalWithSignIn = () => {
     console.log("show modal clicked")
@@ -234,7 +238,7 @@ handleUpdateScore = (event) => {
 
         <Modal
           className="input-field"
-          onClose={this.showModal}
+          onClose={this.toggleModal}
           show={this.state.show}
           email={this.state.email}
           userName={this.state.userName}
@@ -249,14 +253,7 @@ handleUpdateScore = (event) => {
           toggleSignInRegisterForm={this.toggleSignInRegisterForm}
           failedLogin={this.state.failedLogin}
           handleCreateUser={this.handleCreateUser}
-        >
-          Register Your Account
-          <Row>
-            <Input s={12} type="email" label="Email" />
-            <Input s={12} type="password" label="Password" />
-          </Row>
-        </Modal>
-
+        />
         <Game />
         <Footer />
       </Container>
