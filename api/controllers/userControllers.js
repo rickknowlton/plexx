@@ -1,4 +1,5 @@
 const db = require("../models");
+const Sequelize = require("sequelize");
 
 // Defining methods for the booksController
 module.exports = {
@@ -25,6 +26,18 @@ module.exports = {
                 id: "Unavailable"
             });
         }
+    },
+
+    searchByUsername: function(req, res) {
+        db.User.findAll({
+            where: {
+                userName: {
+                    [Sequelize.Op.like]: req.body.newUsername + "%"
+                }
+            }
+        }).then(function(dbUsernames) {
+            res.json(dbUsernames)
+        })
     },
 
     // Create empty scores row for new user with associated userID
