@@ -7,12 +7,12 @@ export const Footer = props => (
             <div className="row">
               <div className="col l6 s12">
                 <h5>About plexx</h5>
-                <p>plexx is simple, yet addicting maze runner designed using HTML5 Canvas and Javascript.</p>
+                <p>plexx is simple, yet addicting maze runner designed using Phaser3, HTML5 Canvas and Javascript.</p>
               </div>
               <div className="col l4 offset-l2 s12">
                 <h5>Connect with plexx</h5>
                 <ul>
-                  <li><a href="https://twitter.com/plexx" target="_blank"><i className="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+                  <li><a href="https://twitter.com/plexxapp" target="_blank"><i className="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
                   <li><a href="https://github.com/" target="_blank"><i className="fa fa-github" aria-hidden="true"></i> GitHub</a></li>
                 </ul>
               </div>
