@@ -69,8 +69,6 @@ export default class Modal extends React.Component {
        modalRoot.removeChild(this.element);
    }
 
-   matchPasswords
-
    render() {
         var modalUI = (
             <div style={backdropStyle}>
@@ -93,6 +91,7 @@ export default class Modal extends React.Component {
                         email={this.props.email}
                         password={this.props.password}
                         confirmPassword={this.props.confirmPassword}
+                        validateUniqueUsernames={this.props.validateUniqueUsernames}
                     />
                     }
 
@@ -133,6 +132,7 @@ export default class Modal extends React.Component {
                                     disabled={
                                         !(
                                             this.props.userName &&
+                                            this.props.usernameAvailable &&
                                             this.props.email &&
                                             this.props.password &&
                                             this.props.confirmPassword

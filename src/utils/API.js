@@ -36,5 +36,10 @@ export default {
   // Get level scores
   getScores: function() {
     return axios.get("/api/scores");
+  },
+
+  // get all matching usernames
+  getUsernames: function(key) {
+    return axios.post(`/api/usersearch/`, key);
   }
 };

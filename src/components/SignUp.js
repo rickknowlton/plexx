@@ -10,7 +10,7 @@ export const SignUp = props => (
 		label="Username"
 		type="text"
 		value={props.userName}
-		onChange={props.handleInputChange}
+		onChange={props.validateUniqueUsernames}
 		name="userName"
 		auto="new-username"
 		placeholder="SteveHarwell420"
