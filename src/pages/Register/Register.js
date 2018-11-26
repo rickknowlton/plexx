@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import { Input, Button } from "react-materialize";
 import { Link, Redirect } from "react-router-dom";
-import { Row, Container, Nav, Footer } from "../../m-components";
+import { Nav, Footer } from "../../m-components";
+import { Container, Col, Row, Input, Card, Button } from "react-materialize";
 import '../../css/container.css'
 import { SignUp } from "../../components/SignUp";
 
