@@ -22,14 +22,18 @@ class MainPage extends Component {
             password: "",
             confirmPassword: "",
             usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
+            emailAvailability: false,
             loggedIn: false,
             displayName: null,
             redirectTo: null,
             showSigninForm: true,
             failedLogin: false,
             show: true,
-            usernameAvailable: false,
-            displayUnmatchedPasswords: false
+            usernameAvailable: true,
+            displayUnmatchedPasswords: false,
+            failedMatchingPasswords: false
         }   
     }
 
@@ -127,7 +131,8 @@ class MainPage extends Component {
                         password:'',
                         confirmPassword:'',
                         loggedIn: true,
-                        displayName: response.data.user.userName
+                        displayName: response.data.user.userName,
+                        failedMatchingPasswords: false
                     });
                     API.setEmptyScores({
                     UserId: response.data.user.id
@@ -136,6 +141,9 @@ class MainPage extends Component {
                 .catch(err => console.log(err));
             } else {
                 console.log("passwords do not match");
+                this.setState({
+                    failedMatchingPasswords: true
+                })
             }
         }
     };
@@ -233,7 +241,7 @@ class MainPage extends Component {
     validateUniqueUsernames = (e) => {
         this.handleInputChange(e)
         this.state.userCheat = e.target.value;
-        
+ 
         if (this.state.userCheat.length > 3) {
             API.getUsernames({
                 newUsername: this.state.userCheat
@@ -244,11 +252,12 @@ class MainPage extends Component {
                     takenUsernames.push(element.userName);
                 })
                 if (takenUsernames.length === 0) {
+                    console.log("username available");
                     this.setState({
                         usernameAvailable: true,
                         usernameStateAvailability: "Username Available"
                     })
-                } 
+                }
                 else if (this.state.usernameAvailable && (takenUsernames.length > 0)) {
                     this.setState({
                         usernameAvailable: false,
@@ -259,24 +268,50 @@ class MainPage extends Component {
         }
     }
 
-    comparePasswords(e) {
-        this.handleInputChange(e)
-		if ((this.state.password === this.state.confirmPassword)
-		&& (this.state.password > 0) && (this.state.confirmPassword > 0)) {
-			this.setState({
-                displayUnmatchedPasswords: false,
-                passwordsMatch: true
+    checkForRegisteredEmails = (e) => {
+        this.handleInputChange(e);
+        this.state.checkEmail = e.target.value;
+
+        if (this.state.checkEmail.length > 4) {
+            console.log(this.state.checkEmail);
+            API.getRegisteredEmails({
+                email: this.state.checkEmail
             })
-            console.log("Match!");
-		}
-		else {
-			this.setState({
-                displayUnmatchedPasswords: true,
-                passwordsMatch: false
+            .then((res) => {
+                if (res.data[0]) {
+                    this.setState({
+                        emailAvailability: false,
+                        registerNewEmail: "Email Already Registered!"
+                    })
+                } 
+                else {
+                    this.setState({
+                        emailAvailability: true,
+                        registerNewEmail: "Email"
+                    })
+                }
             })
-            console.log("No Match!");
-		}
-	}
+        }
+    }
+
+    // comparePasswords(e) {
+    //     this.handleInputChange(e)
+	// 	if ((this.state.password === this.state.confirmPassword)
+	// 	&& (this.state.password > 0) && (this.state.confirmPassword > 0)) {
+	// 		this.setState({
+    //             displayUnmatchedPasswords: false,
+    //             passwordsMatch: true
+    //         })
+    //         console.log("Match!");
+	// 	}
+	// 	else {
+	// 		this.setState({
+    //             displayUnmatchedPasswords: true,
+    //             passwordsMatch: false
+    //         })
+    //         console.log("No Match!");
+	// 	}
+	// }
 
     render() {
         return (
@@ -284,18 +319,17 @@ class MainPage extends Component {
             <Row>
                 <Col s={12}>
                     <Nav 
-                    title="plexx"
-                    handleLogout={this.handleLogout}
-                    displayName={this.state.displayName}
-                    loggedIn={this.state.loggedIn}
-                    showModalWithSignIn={this.showModalWithSignIn}
-                    showModalWithSignUp={this.showModalWithSignUp}
+                        title="plexx"
+                        handleLogout={this.handleLogout}
+                        displayName={this.state.displayName}
+                        loggedIn={this.state.loggedIn}
+                        showModalWithSignIn={this.showModalWithSignIn}
+                        showModalWithSignUp={this.showModalWithSignUp}
                     />
                 </Col>
             </Row>
-                    <Modal
+                <Modal
                     className="input-field"
-                    onClose={this.toggleModal}
                     show={this.state.show}
                     usernameAvailable={this.state.usernameAvailable}
                     usernameStateAvailability={this.state.usernameStateAvailability}
@@ -303,18 +337,24 @@ class MainPage extends Component {
                     userName={this.state.userName}
                     password={this.state.password}
                     confirmPassword={this.state.confirmPassword}
-                    handleInputChange={this.handleInputChange}
-                    handleLogin={this.handleLogin}
-                    handleLogout={this.handleLogout}
                     displayName={this.state.displayName}
                     loggedIn={this.state.loggedIn}
                     showSigninForm={this.state.showSigninForm}
-                    toggleSignInRegisterForm={this.toggleSignInRegisterForm}
                     failedLogin={this.state.failedLogin}
-                    handleCreateUser={this.handleCreateUser}
+                    emailAvailability={this.state.emailAvailability}
+                    registerNewEmail={this.state.registerNewEmail}
+                    failedMatchingPasswords={this.state.failedMatchingPasswords}
+                    // onChange functions
+                    handleInputChange={this.handleInputChange}
                     validateUniqueUsernames={this.validateUniqueUsernames}
-                    displayUnmatchedPasswords={this.props.displayUnmatchedPasswords}
-                    />
+                    checkForRegisteredEmails={this.checkForRegisteredEmails}
+                    // Actions
+                    handleCreateUser={this.handleCreateUser}
+                    toggleSignInRegisterForm={this.toggleSignInRegisterForm}
+                    handleLogin={this.handleLogin}
+                    handleLogout={this.handleLogout}
+                    onClose={this.toggleModal}
+                />
             <Row>
                 <Col s={12}>
                     <Game/>

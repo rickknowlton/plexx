@@ -3,6 +3,9 @@ import { Input, Button } from "react-materialize";
 import { Link, Redirect } from "react-router-dom";
 
 export const SignUp = props => (
+	<div>
+		{props.failedMatchingPasswords && <span>Passwords did not match!</span>}
+	
 	<form className="white-text">
 	<Input
 		className="white-text"
@@ -18,10 +21,11 @@ export const SignUp = props => (
 	<Input
 		className="white-text"
 		s={12}
-		label="Email"
+		label={props.registerNewEmail}
 		type="email"
 		value={props.email}
-		onChange={props.handleInputChange}
+		// onChange={props.handleInputChange}
+		onChange={props.checkForRegisteredEmails}
 		name="email"
 		auto="new-email"
 		placeholder="steve@smashmouth.com"
@@ -62,4 +66,5 @@ export const SignUp = props => (
 		Create Account
 	</Button> */}
 </form>
+</div>
 );

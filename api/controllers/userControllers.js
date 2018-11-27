@@ -36,7 +36,20 @@ module.exports = {
                 }
             }
         }).then(function(dbUsernames) {
-            res.json(dbUsernames)
+            res.json(dbUsernames);
+        })
+    },
+
+    searchByEmail: function(req, res) {
+        db.User.findAll({
+            where: {
+                email: req.body.email
+                // {
+                //     [Sequelize.Op.like]: req.body.email
+                // }
+            }
+        }).then(function(dbEmail) {
+            res.json(dbEmail);
         })
     },
 

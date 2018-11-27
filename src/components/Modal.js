@@ -82,6 +82,7 @@ export default class Modal extends React.Component {
                 />
             ) : (
                 <SignUp
+                    failedMatchingPasswords={this.props.failedMatchingPasswords}
                     handleCreateUser={this.props.handleCreateUser}
                     handleInputChange={this.props.handleInputChange}
                     userName={this.props.userName}
@@ -92,6 +93,8 @@ export default class Modal extends React.Component {
                     displayUnmatchedPasswords={this.props.displayUnmatchedPasswords}
                     comparePasswords={this.props.comparePasswords}
                     usernameAvailable={this.props.usernameAvailable}
+                    checkForRegisteredEmails={this.props.checkForRegisteredEmails}
+                    registerNewEmail={this.props.registerNewEmail}
                     usernameStateAvailability={this.props.usernameStateAvailability}
                 />
             )}
@@ -138,7 +141,8 @@ export default class Modal extends React.Component {
                         !(
                             this.props.userName &&
                             this.props.usernameAvailable &&
-                            this.props.email &&
+                            // this.props.email &&
+                            this.props.emailAvailability &&
                             this.props.password &&
                             this.props.confirmPassword
                             // this.passwordsMatch
