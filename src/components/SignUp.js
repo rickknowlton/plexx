@@ -43,8 +43,9 @@ export const SignUp = props => (
 		type="password"
 		value={props.confirmPassword}
 		onChange={props.handleInputChange}
+		// onChange={props.comparePasswords}
 		name="confirmPassword"
-		// auto="new-password"
+		auto="new-password"
 	/>
 	{/* <Button
 		s={12}

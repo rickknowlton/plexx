@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { Row, Container, Nav, Footer } from "../../m-components";
 import Game from "../../components/Game";
-import { Input } from "react-materialize";
 import "../../css/container.css";
 import Modal from "../../components/Modal";
 import API from "../../utils/API";
-import { Link, Redirect } from 'react-router-dom';
 
 class MainPage extends Component {
     constructor(props) {
@@ -26,7 +24,8 @@ class MainPage extends Component {
             showSigninForm: true,
             failedLogin: false,
             show: true,
-            usernameAvailable: false
+            usernameAvailable: false,
+            displayUnmatchedPasswords: false
         }   
     }
 
@@ -254,37 +253,58 @@ class MainPage extends Component {
         }
     }
 
+    comparePasswords(e) {
+        this.handleInputChange(e)
+		if ((this.state.password === this.state.confirmPassword)
+		&& (this.state.password > 0) && (this.state.confirmPassword > 0)) {
+			this.setState({
+                displayUnmatchedPasswords: false,
+                passwordsMatch: true
+            })
+            console.log("Match!");
+		}
+		else {
+			this.setState({
+                displayUnmatchedPasswords: true,
+                passwordsMatch: false
+            })
+            console.log("No Match!");
+		}
+	}
+
     render() {
         return (
         <Container>
-            <Nav 
-            title="plexx"
-            handleLogout={this.handleLogout}
-            displayName={this.state.displayName}
-            loggedIn={this.state.loggedIn}
-            showModalWithSignIn={this.showModalWithSignIn}
-            showModalWithSignUp={this.showModalWithSignUp}
+            <Nav
+                title="plexx"
+                handleLogout={this.handleLogout}
+                displayName={this.state.displayName}
+                loggedIn={this.state.loggedIn}
+                showModalWithSignIn={this.showModalWithSignIn}
+                showModalWithSignUp={this.showModalWithSignUp}
             />
 
             <Modal
-            className="input-field"
-            onClose={this.toggleModal}
-            show={this.state.show}
-            usernameAvailable={this.state.usernameAvailable}
-            email={this.state.email}
-            userName={this.state.userName}
-            password={this.state.password}
-            confirmPassword={this.state.confirmPassword}
-            handleInputChange={this.handleInputChange}
-            handleLogin={this.handleLogin}
-            handleLogout={this.handleLogout}
-            displayName={this.state.displayName}
-            loggedIn={this.state.loggedIn}
-            showSigninForm={this.state.showSigninForm}
-            toggleSignInRegisterForm={this.toggleSignInRegisterForm}
-            failedLogin={this.state.failedLogin}
-            handleCreateUser={this.handleCreateUser}
-            validateUniqueUsernames={this.validateUniqueUsernames}
+                className="input-field"
+                onClose={this.toggleModal}
+                show={this.state.show}
+                usernameAvailable={this.state.usernameAvailable}
+                email={this.state.email}
+                userName={this.state.userName}
+                password={this.state.password}
+                confirmPassword={this.state.confirmPassword}
+                handleInputChange={this.handleInputChange}
+                handleLogin={this.handleLogin}
+                handleLogout={this.handleLogout}
+                displayName={this.state.displayName}
+                loggedIn={this.state.loggedIn}
+                showSigninForm={this.state.showSigninForm}
+                toggleSignInRegisterForm={this.toggleSignInRegisterForm}
+                failedLogin={this.state.failedLogin}
+                handleCreateUser={this.handleCreateUser}
+                validateUniqueUsernames={this.validateUniqueUsernames}
+                comparePasswords={this.comparePasswords}
+                displayUnmatchedPasswords={this.props.displayUnmatchedPasswords}
             />
             <Game />
             <Footer />
