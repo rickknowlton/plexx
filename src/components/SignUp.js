@@ -7,7 +7,7 @@ export const SignUp = props => (
 	<Input
 		className="white-text"
 		s={12}
-		label="Username"
+		label={props.usernameStateAvailability}
 		type="text"
 		value={props.userName}
 		onChange={props.validateUniqueUsernames}

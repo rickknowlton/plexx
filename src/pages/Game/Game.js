@@ -21,6 +21,7 @@ class MainPage extends Component {
             email: "",
             password: "",
             confirmPassword: "",
+            usernameStateAvailability: "Username",
             loggedIn: false,
             displayName: null,
             redirectTo: null,
@@ -244,12 +245,14 @@ class MainPage extends Component {
                 })
                 if (takenUsernames.length === 0) {
                     this.setState({
-                        usernameAvailable: true
+                        usernameAvailable: true,
+                        usernameStateAvailability: "Username Available"
                     })
                 } 
                 else if (this.state.usernameAvailable && (takenUsernames.length > 0)) {
                     this.setState({
-                        usernameAvailable: false
+                        usernameAvailable: false,
+                        usernameStateAvailability: "Username Unavailable"
                     })
                 }
             })
@@ -295,6 +298,7 @@ class MainPage extends Component {
                     onClose={this.toggleModal}
                     show={this.state.show}
                     usernameAvailable={this.state.usernameAvailable}
+                    usernameStateAvailability={this.state.usernameStateAvailability}
                     email={this.state.email}
                     userName={this.state.userName}
                     password={this.state.password}

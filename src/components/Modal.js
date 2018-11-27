@@ -91,6 +91,8 @@ export default class Modal extends React.Component {
                     validateUniqueUsernames={this.props.validateUniqueUsernames}
                     displayUnmatchedPasswords={this.props.displayUnmatchedPasswords}
                     comparePasswords={this.props.comparePasswords}
+                    usernameAvailable={this.props.usernameAvailable}
+                    usernameStateAvailability={this.props.usernameStateAvailability}
                 />
             )}
 
