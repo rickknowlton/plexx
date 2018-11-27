@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import { Row, Container, Nav, Footer } from "../../m-components";
+import { Nav, Footer } from "../../m-components";
+import { Container, Col, Row, Input, Card } from "react-materialize";
 import Game from "../../components/Game";
+import Highscore from "../../components/Highscore";
+import Score from "../../components/Score";
 import "../../css/container.css";
 import Modal from "../../components/Modal";
 import API from "../../utils/API";
@@ -275,40 +278,58 @@ class MainPage extends Component {
     render() {
         return (
         <Container>
-            <Nav
-                title="plexx"
-                handleLogout={this.handleLogout}
-                displayName={this.state.displayName}
-                loggedIn={this.state.loggedIn}
-                showModalWithSignIn={this.showModalWithSignIn}
-                showModalWithSignUp={this.showModalWithSignUp}
-            />
-
-            <Modal
-                className="input-field"
-                onClose={this.toggleModal}
-                show={this.state.show}
-                usernameAvailable={this.state.usernameAvailable}
-                email={this.state.email}
-                userName={this.state.userName}
-                password={this.state.password}
-                confirmPassword={this.state.confirmPassword}
-                handleInputChange={this.handleInputChange}
-                handleLogin={this.handleLogin}
-                handleLogout={this.handleLogout}
-                displayName={this.state.displayName}
-                loggedIn={this.state.loggedIn}
-                showSigninForm={this.state.showSigninForm}
-                toggleSignInRegisterForm={this.toggleSignInRegisterForm}
-                failedLogin={this.state.failedLogin}
-                handleCreateUser={this.handleCreateUser}
-                validateUniqueUsernames={this.validateUniqueUsernames}
-                comparePasswords={this.comparePasswords}
-                displayUnmatchedPasswords={this.props.displayUnmatchedPasswords}
-            />
-            <Game />
-            <Footer />
-        </Container>
+            <Row>
+                <Col s={12}>
+                    <Nav 
+                    title="plexx"
+                    handleLogout={this.handleLogout}
+                    displayName={this.state.displayName}
+                    loggedIn={this.state.loggedIn}
+                    showModalWithSignIn={this.showModalWithSignIn}
+                    showModalWithSignUp={this.showModalWithSignUp}
+                    />
+                </Col>
+            </Row>
+                    <Modal
+                    className="input-field"
+                    onClose={this.toggleModal}
+                    show={this.state.show}
+                    usernameAvailable={this.state.usernameAvailable}
+                    email={this.state.email}
+                    userName={this.state.userName}
+                    password={this.state.password}
+                    confirmPassword={this.state.confirmPassword}
+                    handleInputChange={this.handleInputChange}
+                    handleLogin={this.handleLogin}
+                    handleLogout={this.handleLogout}
+                    displayName={this.state.displayName}
+                    loggedIn={this.state.loggedIn}
+                    showSigninForm={this.state.showSigninForm}
+                    toggleSignInRegisterForm={this.toggleSignInRegisterForm}
+                    failedLogin={this.state.failedLogin}
+                    handleCreateUser={this.handleCreateUser}
+                    validateUniqueUsernames={this.validateUniqueUsernames}
+                    displayUnmatchedPasswords={this.props.displayUnmatchedPasswords}
+                    />
+            <Row>
+                <Col s={12}>
+                    <Game/>
+                </Col>
+            </Row>
+            <Row>
+                <Col m={6} s={12}>
+                    <Score/>
+                </Col>
+                <Col m={6} s={12}>
+                    <Highscore/>
+                </Col>
+            </Row>
+            <Row>
+                <Col s={12}>
+                    <Footer/>
+                </Col>
+            </Row>
+      </Container>
         
         );
     }
