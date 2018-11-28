@@ -60,11 +60,22 @@ class MainPage extends Component {
         event.preventDefault();
         if (this.state.showSigninForm) {
             this.setState({
+                userName: "",
+                email: "",
+                password: "",
                 showSigninForm: false
             })
         }
         else {
             this.setState({
+                userCheat: "",
+                userName: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                usernameStateAvailability: "Username",
+                checkEmail: "",
+                registerNewEmail: "Email",
                 showSigninForm: true
             })
         }
@@ -215,6 +226,14 @@ class MainPage extends Component {
     toggleModal = () => {
         console.log("show modal clicked")
         this.setState({
+            userCheat: "",
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
             ...this.state,
             show: !this.state.show
         });
@@ -224,6 +243,14 @@ class MainPage extends Component {
         console.log("show modal clicked")
         this.setState({
             ...this.state,
+            userCheat: "",
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
             showSigninForm: true,
             show: !this.state.show
         });
@@ -252,7 +279,6 @@ class MainPage extends Component {
                     takenUsernames.push(element.userName);
                 })
                 if (takenUsernames.length === 0) {
-                    console.log("username available");
                     this.setState({
                         usernameAvailable: true,
                         usernameStateAvailability: "Username Available"
@@ -272,8 +298,7 @@ class MainPage extends Component {
         this.handleInputChange(e);
         this.state.checkEmail = e.target.value;
 
-        if (this.state.checkEmail.length > 4) {
-            console.log(this.state.checkEmail);
+        if (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email.trim())) {
             API.getRegisteredEmails({
                 email: this.state.checkEmail
             })
@@ -283,7 +308,7 @@ class MainPage extends Component {
                         emailAvailability: false,
                         registerNewEmail: "Email Already Registered!"
                     })
-                } 
+                }
                 else {
                     this.setState({
                         emailAvailability: true,

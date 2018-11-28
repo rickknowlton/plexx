@@ -44,7 +44,6 @@ export default {
   },
 
   getRegisteredEmails: function(key) {
-    console.log(key);
     return axios.post(`/api/emailsearch/`, key);
   }
 };
