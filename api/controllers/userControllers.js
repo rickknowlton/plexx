@@ -70,6 +70,18 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    getUserScores: function(req, res) {
+        db.Score.findOne({
+            where: {
+                UserId: req.params.id
+            }
+        })
+        .then((dbScores) => {
+            res.json(dbScores);
+        })
+        .catch(err => res.status(422).json(err));
+    },
+
     // Get all scores
     // FIXME
     getScores: function(req, res) {

@@ -6,7 +6,7 @@ import game from '../img/game.png';
 const Score = props => (
     <React.Fragment>
                 <Card className='scoreboard grey darken-3 z-depth-5' textClassName='white-text' title='Your Score:'>
-                666 
+                <div id="score"></div>
                 </Card>
     </React.Fragment>
 );
