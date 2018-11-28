@@ -7,7 +7,6 @@ import Score from "../../components/Score";
 import "../../css/container.css";
 import Modal from "../../components/Modal";
 import API from "../../utils/API";
-import { Link, Redirect } from 'react-router-dom';
 
 class MainPage extends Component {
     constructor(props) {
@@ -22,13 +21,19 @@ class MainPage extends Component {
             email: "",
             password: "",
             confirmPassword: "",
+            usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
+            emailAvailability: false,
             loggedIn: false,
             displayName: null,
             redirectTo: null,
             showSigninForm: true,
             failedLogin: false,
             show: true,
-            usernameAvailable: false
+            usernameAvailable: true,
+            displayUnmatchedPasswords: false,
+            failedMatchingPasswords: false
         }   
     }
 
@@ -55,11 +60,22 @@ class MainPage extends Component {
         event.preventDefault();
         if (this.state.showSigninForm) {
             this.setState({
+                userName: "",
+                email: "",
+                password: "",
                 showSigninForm: false
             })
         }
         else {
             this.setState({
+                userCheat: "",
+                userName: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                usernameStateAvailability: "Username",
+                checkEmail: "",
+                registerNewEmail: "Email",
                 showSigninForm: true
             })
         }
@@ -126,7 +142,8 @@ class MainPage extends Component {
                         password:'',
                         confirmPassword:'',
                         loggedIn: true,
-                        displayName: response.data.user.userName
+                        displayName: response.data.user.userName,
+                        failedMatchingPasswords: false
                     });
                     API.setEmptyScores({
                     UserId: response.data.user.id
@@ -135,6 +152,9 @@ class MainPage extends Component {
                 .catch(err => console.log(err));
             } else {
                 console.log("passwords do not match");
+                this.setState({
+                    failedMatchingPasswords: true
+                })
             }
         }
     };
@@ -206,6 +226,14 @@ class MainPage extends Component {
     toggleModal = () => {
         console.log("show modal clicked")
         this.setState({
+            userCheat: "",
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
             ...this.state,
             show: !this.state.show
         });
@@ -215,6 +243,14 @@ class MainPage extends Component {
         console.log("show modal clicked")
         this.setState({
             ...this.state,
+            userCheat: "",
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
             showSigninForm: true,
             show: !this.state.show
         });
@@ -232,7 +268,7 @@ class MainPage extends Component {
     validateUniqueUsernames = (e) => {
         this.handleInputChange(e)
         this.state.userCheat = e.target.value;
-        
+ 
         if (this.state.userCheat.length > 3) {
             API.getUsernames({
                 newUsername: this.state.userCheat
@@ -244,17 +280,63 @@ class MainPage extends Component {
                 })
                 if (takenUsernames.length === 0) {
                     this.setState({
-                        usernameAvailable: true
+                        usernameAvailable: true,
+                        usernameStateAvailability: "Username Available"
                     })
-                } 
+                }
                 else if (this.state.usernameAvailable && (takenUsernames.length > 0)) {
                     this.setState({
-                        usernameAvailable: false
+                        usernameAvailable: false,
+                        usernameStateAvailability: "Username Unavailable"
                     })
                 }
             })
         }
     }
+
+    checkForRegisteredEmails = (e) => {
+        this.handleInputChange(e);
+        this.state.checkEmail = e.target.value;
+
+        if (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email.trim())) {
+            API.getRegisteredEmails({
+                email: this.state.checkEmail
+            })
+            .then((res) => {
+                if (res.data[0]) {
+                    this.setState({
+                        emailAvailability: false,
+                        registerNewEmail: "Email Already Registered!"
+                    })
+                }
+                else {
+                    this.setState({
+                        emailAvailability: true,
+                        registerNewEmail: "Email"
+                    })
+                }
+            })
+        }
+    }
+
+    // comparePasswords(e) {
+    //     this.handleInputChange(e)
+	// 	if ((this.state.password === this.state.confirmPassword)
+	// 	&& (this.state.password > 0) && (this.state.confirmPassword > 0)) {
+	// 		this.setState({
+    //             displayUnmatchedPasswords: false,
+    //             passwordsMatch: true
+    //         })
+    //         console.log("Match!");
+	// 	}
+	// 	else {
+	// 		this.setState({
+    //             displayUnmatchedPasswords: true,
+    //             passwordsMatch: false
+    //         })
+    //         console.log("No Match!");
+	// 	}
+	// }
 
     render() {
         return (
@@ -262,35 +344,42 @@ class MainPage extends Component {
             <Row>
                 <Col s={12}>
                     <Nav 
-                    title="plexx"
-                    handleLogout={this.handleLogout}
-                    displayName={this.state.displayName}
-                    loggedIn={this.state.loggedIn}
-                    showModalWithSignIn={this.showModalWithSignIn}
-                    showModalWithSignUp={this.showModalWithSignUp}
+                        title="plexx"
+                        handleLogout={this.handleLogout}
+                        displayName={this.state.displayName}
+                        loggedIn={this.state.loggedIn}
+                        showModalWithSignIn={this.showModalWithSignIn}
+                        showModalWithSignUp={this.showModalWithSignUp}
                     />
                 </Col>
             </Row>
-                    <Modal
+                <Modal
                     className="input-field"
-                    onClose={this.toggleModal}
                     show={this.state.show}
                     usernameAvailable={this.state.usernameAvailable}
+                    usernameStateAvailability={this.state.usernameStateAvailability}
                     email={this.state.email}
                     userName={this.state.userName}
                     password={this.state.password}
                     confirmPassword={this.state.confirmPassword}
-                    handleInputChange={this.handleInputChange}
-                    handleLogin={this.handleLogin}
-                    handleLogout={this.handleLogout}
                     displayName={this.state.displayName}
                     loggedIn={this.state.loggedIn}
                     showSigninForm={this.state.showSigninForm}
-                    toggleSignInRegisterForm={this.toggleSignInRegisterForm}
                     failedLogin={this.state.failedLogin}
-                    handleCreateUser={this.handleCreateUser}
+                    emailAvailability={this.state.emailAvailability}
+                    registerNewEmail={this.state.registerNewEmail}
+                    failedMatchingPasswords={this.state.failedMatchingPasswords}
+                    // onChange functions
+                    handleInputChange={this.handleInputChange}
                     validateUniqueUsernames={this.validateUniqueUsernames}
-                    />
+                    checkForRegisteredEmails={this.checkForRegisteredEmails}
+                    // Actions
+                    handleCreateUser={this.handleCreateUser}
+                    toggleSignInRegisterForm={this.toggleSignInRegisterForm}
+                    handleLogin={this.handleLogin}
+                    handleLogout={this.handleLogout}
+                    onClose={this.toggleModal}
+                />
             <Row>
                 <Col s={12}>
                     <Game/>

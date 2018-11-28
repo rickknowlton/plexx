@@ -36,7 +36,20 @@ module.exports = {
                 }
             }
         }).then(function(dbUsernames) {
-            res.json(dbUsernames)
+            res.json(dbUsernames);
+        })
+    },
+
+    searchByEmail: function(req, res) {
+        db.User.findAll({
+            where: {
+                email: req.body.email
+                // {
+                //     [Sequelize.Op.like]: req.body.email
+                // }
+            }
+        }).then(function(dbEmail) {
+            res.json(dbEmail);
         })
     },
 
@@ -55,6 +68,18 @@ module.exports = {
                 { returning: true, where: {UserId: req.params.id} })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
+    },
+
+    getUserScores: function(req, res) {
+        db.Score.findOne({
+            where: {
+                UserId: req.params.id
+            }
+        })
+        .then((dbScores) => {
+            res.json(dbScores);
+        })
+        .catch(err => res.status(422).json(err));
     },
 
     // Get all scores

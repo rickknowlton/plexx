@@ -41,5 +41,9 @@ export default {
   // get all matching usernames
   getUsernames: function(key) {
     return axios.post(`/api/usersearch/`, key);
+  },
+
+  getRegisteredEmails: function(key) {
+    return axios.post(`/api/emailsearch/`, key);
   }
 };
