@@ -1,5 +1,3 @@
-let currentUser = "";
-
 const willGetCurrentUser = new Promise (
     function (resolve, reject) {
         const xmlhttp = new XMLHttpRequest();
@@ -8,7 +6,6 @@ const willGetCurrentUser = new Promise (
             if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                 if (xmlhttp.status == 200) {
                     const response = JSON.parse(xmlhttp.response);
-                    currentUser = response;
                     resolve({
                         username: response.username,
                         id: response.id,
