@@ -85,8 +85,6 @@ var coin1;
 var treeBranch1;
 
 var background;
-var endZone;
-var onEndZone = false;
 
 Game.Level1.prototype = {
 
@@ -149,13 +147,8 @@ Game.Level1.prototype = {
         ladders.enableBody = true;
         var ladder = ladders.create(800, 700, 'ladder');
         ladder.body.immovable = true;
-
-        endZone = game.add.group();
-        endZone.enableBody = true;
-        var endGame = endZone.create(800, 700, 'endZone');
-        endGame.body.immovable = true;
         
-        player = this.add.sprite(100, 2200, 'bad_dude');
+        player = this.add.sprite(150, 1400, 'bad_dude');
         player.anchor.setTo(.5, .5);
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('turn', [4], 20, true);
@@ -245,8 +238,6 @@ Game.Level1.prototype = {
         onLadder = false;
 
         onSpring = false;
-        
-        onEndZone = false;
 
         player.body.gravity.y = gravity;
 
@@ -270,8 +261,6 @@ Game.Level1.prototype = {
 
         this.physics.arcade.overlap(player, coin1.coin);
         this.physics.arcade.overlap(player, coin2.coin);
-
-        this.physics.arcade.overlap(player, endZone, isOnEndZone);
         
         player.body.velocity.x = 0;
         
@@ -422,13 +411,6 @@ Game.Level1.prototype = {
         }
         if(checkOverlap(player, springs)) {
             player.body.velocity.y = +playerSpeed*-8;
-        }
-
-        if(checkOverlap(player, endZone)) {
-
-            console.log('you win');
-
-            player.game.state.restart();
         }
         
     },
@@ -598,11 +580,6 @@ function isOnSpring() {
   onSpring = true;
   
 };
-
-function isOnEndZone() {
-    onEndZone = true;
-    
-  };
 
 function removeSprite(sprite) {
     // Removes the sprite from the screen
