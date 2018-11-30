@@ -20,7 +20,10 @@ Game.Boot.prototype = {
     },
 
     create:function() {
-        
+
+        this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        this.scale.pageAlignHorizontally = true;
+        this.scale.pageAlignVertically = true;
         this.state.start('Preloader');
     }
 }
