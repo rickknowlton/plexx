@@ -23,7 +23,8 @@ module.exports = {
         } else {
             res.json({
                 username: "Guest",
-                id: "Unavailable"
+                id: "Unavailable",
+                loggedIn: false
             });
         }
     },

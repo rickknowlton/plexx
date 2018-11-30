@@ -91,6 +91,10 @@ var onEndZone = false;
 Game.Level1.prototype = {
 
     create: function(game) {
+
+        // this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        // this.scale.pageAlignHorizontally = true;
+
         this.stage.backgroundColor = '#3A5963'
 
         // background = this.game.add.image(0, 0, 'background');
