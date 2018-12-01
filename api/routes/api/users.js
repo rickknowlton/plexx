@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../../controllers/userControllers");
-const db = require("../../models");
-const Sequelize = require("sequelize");
 const passport = require('passport');
 
 // Matches with "/api/user"
