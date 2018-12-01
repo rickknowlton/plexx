@@ -17,3 +17,51 @@ body {
 button {
   margin: 5px;
 }
+
+/* .container {
+  width: 100%
+} */
+
+.register {
+  font-weight: bold;
+}
+
+.z-depth-1-btn {
+  box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.14), 0 1px 18px 0 rgba(255, 255, 255, 0.12), 0 3px 5px -1px rgba(255, 255, 255, 0.3);
+}
+
+
+#upper_left {
+	width: 15px; height: 15px;
+	position: absolute;
+	top: 0; left: 0;
+	background-image: url(../img/screw.png);
+	background-repeat: no-repeat;
+}
+
+#upper_right {
+	width: 15px; height: 15px;
+	position: absolute;
+	top: 0;
+	right: 0%;
+	background-image: url(../img/screw.png);
+	background-repeat: no-repeat;
+}
+
+#lower_left {
+	width: 15px; height: 15px;
+	position: absolute;
+	bottom: 0%; left: 0;
+	background-image: url(../img/screw.png);
+	background-repeat: no-repeat;
+}
+
+#lower_right {
+	width: 15px; height: 15px;
+	bottom: 0%;
+	right: 0%;
+	position: absolute;
+	background-image: url(../img/screw.png);
+	background-repeat: no-repeat;
+  
+}

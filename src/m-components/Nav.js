@@ -26,19 +26,19 @@ export const Nav = props => (
       <ul className="right">
         <li>
           <Button
-              className="waves-effect waves-light cyan lighten-2 btn m-3"
+              className="waves-effect waves-light cyan accent-1 hoverable btn"
               onClick={props.showModalWithSignIn}
               >
               Sign in
             </Button>
         </li>
         <li>
-          <span 
-            className="clickable"
+        <Button
+              className="waves-effect waves-light cyan accent-2 hoverable btn"
             onClick={props.showModalWithSignUp}
             >
-              register
-            </span>
+              Register
+          </Button>
         </li>
       </ul>
       }
