@@ -6,8 +6,6 @@ import "../css/container.css";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 import { Divider } from "./Divider";
-import { spawnSync } from "child_process";
-
 
 const backdropStyle = {
     position: "fixed",
@@ -52,7 +50,6 @@ export default class Modal extends React.Component {
         this.element = document.createElement("div");
     }
     onClose = e => {
-        console.log("BUTTON CLICKED");
         e.stopPropagation();
         this.props.onClose && this.props.onClose(e);
     };
@@ -133,7 +130,7 @@ export default class Modal extends React.Component {
                     <Divider color="rgba(255, 255, 255, 0.625)" />
                     Don't Have an Account? 
                     <span
-                        className="clickable register"
+                        className="clickable register hoverable pointer"
                         onClick={this.props.toggleSignInRegisterForm}
                     >
                         &nbsp;Sign Up Here!

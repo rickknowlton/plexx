@@ -1,5 +1,4 @@
 const db = require("../models");
-const Sequelize = require("sequelize");
 
 // Defining methods for the booksController
 module.exports = {
@@ -32,9 +31,7 @@ module.exports = {
     searchByUsername: function(req, res) {
         db.User.findAll({
             where: {
-                userName: {
-                    [Sequelize.Op.like]: req.body.newUsername + "%"
-                }
+                userName: req.body.newUsername
             }
         }).then(function(dbUsernames) {
             res.json(dbUsernames);

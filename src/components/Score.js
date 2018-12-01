@@ -1,7 +1,6 @@
 import React from 'react';
-import { Input, Col, Card } from "react-materialize";
+import { Card } from "react-materialize";
 import '../css/game.css';
-import game from '../img/game.png';
 
 const Score = props => (
     <React.Fragment>

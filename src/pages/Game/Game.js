@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Nav, Footer } from "../../m-components";
-import { Container, Col, Row, Input, Card } from "react-materialize";
+import { Container, Col, Row } from "react-materialize";
 import Game from "../../components/Game";
 import Highscore from "../../components/Highscore";
 import Score from "../../components/Score";
@@ -38,7 +38,6 @@ class MainPage extends Component {
     }
 
     componentDidMount() {
-        console.log("component mounted");
         this.getUserAtPageLoad();
     }
 
@@ -174,7 +173,7 @@ class MainPage extends Component {
                     loggedIn: false,
                     displayName: null
                 })
-                console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
+                // console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
             }
         });
     };
@@ -240,7 +239,6 @@ class MainPage extends Component {
     };
 
     showModalWithSignIn = () => {
-        console.log("show modal clicked")
         this.setState({
             ...this.state,
             userCheat: "",
@@ -259,6 +257,15 @@ class MainPage extends Component {
     showModalWithSignUp = () => {
         this.setState({
             ...this.state,
+            userCheat: "",
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
+            failedLogin: false,
             showSigninForm: false,
             show: !this.state.show
         });
@@ -267,24 +274,20 @@ class MainPage extends Component {
     // Get list of usernames for new user validation
     validateUniqueUsernames = (e) => {
         this.handleInputChange(e)
-        this.state.userCheat = e.target.value;
+        let name = e.target.value;
  
-        if (this.state.userCheat.length > 3) {
+        if (name.length > 3) {
             API.getUsernames({
-                newUsername: this.state.userCheat
+                newUsername: name
             })
             .then(res => {
-                let takenUsernames = []
-                res.data.forEach(element => {
-                    takenUsernames.push(element.userName);
-                })
-                if (takenUsernames.length === 0) {
+                if (!res.data[0]) {
                     this.setState({
                         usernameAvailable: true,
                         usernameStateAvailability: "Username Available"
                     })
                 }
-                else if (this.state.usernameAvailable && (takenUsernames.length > 0)) {
+                else if (this.state.usernameAvailable && res.data[0]) {
                     this.setState({
                         usernameAvailable: false,
                         usernameStateAvailability: "Username Unavailable"
@@ -296,11 +299,11 @@ class MainPage extends Component {
 
     checkForRegisteredEmails = (e) => {
         this.handleInputChange(e);
-        this.state.checkEmail = e.target.value;
+        let checkEmail = e.target.value;
 
         if (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email.trim())) {
             API.getRegisteredEmails({
-                email: this.state.checkEmail
+                email: checkEmail
             })
             .then((res) => {
                 if (res.data[0]) {

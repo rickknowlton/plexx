@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Input, Row, Col } from "react-materialize";
+import React from "react";
+import { Input } from "react-materialize";
 
 export const SignIn = props => (
     <form>

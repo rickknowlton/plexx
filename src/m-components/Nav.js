@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/logo.css';
-import { Input, Button } from "react-materialize";
-import { Link, Redirect } from 'react-router-dom';
+import { Button } from "react-materialize";
 
 export const Nav = props => (
   <nav>
