@@ -10,6 +10,11 @@ function preload() {
 
 }
 
+
+
+// this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+// this.scale.pageAlignHorizontally = true;
+
 var player;
 var facing = 'left';
 var jumpTimer = 0;
