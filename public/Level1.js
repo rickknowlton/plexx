@@ -233,8 +233,11 @@ Game.Level1.prototype = {
 
     update:function() {
 
-        
-        
+        // Remove Key Capture So the browser reads keypresses
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.S);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
 
         enemy1.yeti.animations.play('left');
         coin1.coin.animations.play('right');
