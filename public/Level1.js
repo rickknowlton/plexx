@@ -50,11 +50,29 @@ TreeBranch2 = function(index, game, x, y) {
     this.ledge.body.immovable = true;
 };
 
+TreeBranch3 = function(index, game, x, y) {
+
+    this.ledge3 = game.add.sprite(x, y, 'ground3');
+    game.physics.arcade.enable(this.ledge3);
+    this.ledge3.anchor.setTo(0.5, 0.5);
+    this.ledge3.body.immovable = true;
+};
+
+SpringJump = function(index, game, x, y) {
+
+    this.spring = game.add.sprite(x, y, 'spring');
+    game.physics.arcade.enable(this.spring);
+    this.spring.anchor.setTo(0.5, 0.5);
+    this.spring.body.immovable = true;
+    this.acceleration = 100;
+};
+
 
 
 Game.Level1 = function(game) {};
 
 var map;
+var map2;
 var layer;
 
 var facing = 'left';
@@ -75,7 +93,9 @@ var gravity = 1400;
 var ladders;
 var onLadder = false;
 
-var springs;
+var spring1;
+var spring2;
+// var springs;
 var onSpring = false;
 
 var yeti;
@@ -83,10 +103,21 @@ var platforms;
 var enemy1;
 var coin1;
 var treeBranch1;
+var treeBranch2;
+var treeBranch3;
+var treeBranch4;
+var treeBranch5;
+var treeBranch6;
+var treeBranch7;
 
 var background;
 var endZone;
 var onEndZone = false;
+
+var mountainBg;
+var SPEED = 200;
+
+var ledge3;
 
 Game.Level1.prototype = {
 
@@ -99,40 +130,54 @@ Game.Level1.prototype = {
 
         // background = this.game.add.image(0, 0, 'background');
 
-        // this.physics.arcade.gravity.y = 1400;
 
         map = this.add.tilemap('map', 32, 32);
+        
 
         map.addTilesetImage('tileset');
         
+        this.stage.background = this.add.tileSprite(0, 0, 800, 600, 'background');
+        // this.background.autoScroll(-SPEED, 0);
 
         layer = map.createLayer(0);
 
         layer.resizeWorld();
 
-        // map.setCollisionBetween(21, 25);
+        map.setCollisionBetween(23, 24);
 
-        map.setCollisionBetween(57, 58);
-        map.setCollisionBetween(118, 181);
-        map.setCollisionBetween(247, 268);
+        map.setCollisionBetween(107, 108);
+        // map.setCollisionBetween(118, 181);
+        // map.setCollisionBetween(247, 268);
 
-        map.setCollisionBetween(652, 657);
-        map.setCollisionBetween(691, 703);
-        map.setCollisionBetween(731, 743);
-        map.setCollisionBetween(745,756);
-        map.setCollisionBetween(771,783);
-        map.setCollisionBetween(785,792);
-        map.setCollisionBetween(888,890);
-        map.setCollisionBetween(848, 852);
-        map.setCollisionBetween(808, 832);
-        map.setCollisionBetween(920, 1047);
+        // map.setCollisionBetween(652, 672);
+        // map.setCollisionBetween(691, 712);
+        // map.setCollisionBetween(731, 743);
+        // map.setCollisionBetween(745,756);
+        // map.setCollisionBetween(771,783);
+        // map.setCollisionBetween(785,792);
+        // map.setCollisionBetween(888,890);
+        // map.setCollisionBetween(848, 852);
+        // map.setCollisionBetween(808, 832);
+        map.setCollisionBetween(719,720);
+        map.setCollisionBetween(1069, 1089);
+        map.setCollisionBetween(1292, 1307);
+        map.setCollisionBetween(2330, 4700);
+
+        map.setCollisionBetween(4857, 4862);
+        map.setCollisionBetween(4941, 4962);
+        map.setCollisionBetween(5026, 5031);
+        map.setCollisionBetween(5111, 5116);
+        map.setCollisionBetween(5193, 5200);
+        map.setCollisionBetween(5278, 5283);
+        map.setCollisionBetween(5365, 5370);
+        map.setCollisionBetween(5440, 5989);
 
 
 
 
         map.setTileIndexCallback(5, this.resetPlayer, this);
         map.setTileIndexCallback(4, this.hitCoin, this);
-        map.setTileIndexCallback(8, this.speedPowerUp, this);
+        map.setTileIndexCallback(0, this.speedPowerUp, this);
         // map.setTileIndexCallback([290 ,319,348,377, 406, 435], this.jumpHigh, this);
 
         // platforms = game.add.group();
@@ -144,19 +189,21 @@ Game.Level1.prototype = {
         // ledge.body.immovable = true;
         // ledge.body.collideDown = false;
         
-        springs = game.add.group();
-        springs.enableBody = true;
-        var spring = springs.create(1088, 2144, 'spring');
-        spring.body.immovable = true;
+        // springs = game.add.group();
+        // springs.enableBody = true;
+        // var spring = springs.create(1088, 2144, 'spring');
+        
+        
+        // spring.body.immovable = true;
 
         ladders = game.add.group();
         ladders.enableBody = true;
-        var ladder = ladders.create(800, 700, 'ladder');
+        var ladder = ladders.create(800, 1200, 'ladder');
         ladder.body.immovable = true;
 
         endZone = game.add.group();
         endZone.enableBody = true;
-        var endGame = endZone.create(800, 700, 'endZone');
+        var endGame = endZone.create(800, 1200, 'endZone');
         endGame.body.immovable = true;
         
         player = this.add.sprite(100, 2200, 'bad_dude');
@@ -168,6 +215,7 @@ Game.Level1.prototype = {
         this.camera.follow(player);
         player.body.bounce.y = 0.2;
         player.body.gravity.y = gravity;
+        // player.body.gravity.x = gravity;
 
         // player.body.collideWorldBounds = true;
         //set a flag for when player gets hit by yeti
@@ -204,9 +252,20 @@ Game.Level1.prototype = {
         enemy1 = new EnemyYeti(320, game, 820, 2180);
         coin1 = new Coins(320, game, 940, 1975);
         coin2 = new Coins(320, game, 970, 1975);
-        treeBranch1 = new TreeBranch(320, game, 704, 2300);
+        coin3 = new Coins(320, game, 1180, 1400);
+        coin4 = new Coins(320, game, 720, 400);
+        treeBranch1 = new TreeBranch(320, game, 704, 2290);
         treeBranch2 = new TreeBranch2(320, game, 928, 2332);
-
+        treeBranch3 = new TreeBranch2(320, game, 1216, 1502);
+        treeBranch4 = new TreeBranch2(320, game, 448, 1008);
+        treeBranch5 = new TreeBranch2(320, game, 448, 880);
+        treeBranch6 = new TreeBranch2(320, game, 448, 752);
+        treeBranch7 = new TreeBranch3(320, game, 720, 500);
+        spring1 = new SpringJump(320, game, 1104, 2160);
+        spring2 = new SpringJump(320, game, 990, 1008);
+        spring3 = new SpringJump(320, game, 561, 1008);
+        spring4 = new SpringJump(320, game, 561, 657);
+        spring5 = new SpringJump(320, game, 900, 530);
 
         bullets = game.add.group();
         bullets.enableBody = true;
@@ -233,12 +292,21 @@ Game.Level1.prototype = {
 
     update:function() {
 
+        // Remove Key Capture So the browser reads keypresses
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.S);
+        this.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
         
+
         
+        // this.background.tilePosition.x = 0.5;
 
         enemy1.yeti.animations.play('left');
         coin1.coin.animations.play('right');
         coin2.coin.animations.play('right');
+        coin3.coin.animations.play('right');
+        coin4.coin.animations.play('right');
         
         
 
@@ -255,9 +323,17 @@ Game.Level1.prototype = {
         player.body.gravity.y = gravity;
 
         this.physics.arcade.collide(player, treeBranch1.ledge);
+        this.physics.arcade.collide(player, treeBranch2.ledge);
+        this.physics.arcade.collide(player, treeBranch3.ledge);
+        this.physics.arcade.collide(player, treeBranch4.ledge);
+        this.physics.arcade.collide(player, treeBranch5.ledge);
+        this.physics.arcade.collide(player, treeBranch6.ledge);
+        this.physics.arcade.collide(player, treeBranch7.ledge3);
 
         this.physics.arcade.collide(coin1.coin, treeBranch2.ledge);
         this.physics.arcade.collide(coin2.coin, treeBranch2.ledge);
+        this.physics.arcade.collide(coin3.coin, treeBranch3.ledge);
+        this.physics.arcade.collide(coin4.coin, treeBranch7.ledge3);
 
         this.physics.arcade.collide(enemy1.yeti, treeBranch1.ledge);
 
@@ -270,10 +346,16 @@ Game.Level1.prototype = {
         
         this.physics.arcade.overlap(player, ladders, isOnLadder);
 
-        this.physics.arcade.overlap(player, springs, isOnSpring);
+        this.physics.arcade.overlap(player, spring1.SpringJump, isOnSpring);
+        this.physics.arcade.overlap(player, spring2.SpringJump, isOnSpring);
+        this.physics.arcade.overlap(player, spring3.SpringJump, isOnSpring);
+        this.physics.arcade.overlap(player, spring4.SpringJump, isOnSpring);
+        this.physics.arcade.overlap(player, spring5.SpringJump, isOnSpring);
 
         this.physics.arcade.overlap(player, coin1.coin);
         this.physics.arcade.overlap(player, coin2.coin);
+        this.physics.arcade.overlap(player, coin3.coin);
+        this.physics.arcade.overlap(player, coin4.coin);
 
         this.physics.arcade.overlap(player, endZone, isOnEndZone);
         
@@ -407,6 +489,52 @@ Game.Level1.prototype = {
 
 
         }
+
+        if(checkOverlap(player, coin3.coin)) {
+            
+
+            if(!coin3.coin.hit && !player.dead) {
+
+                coin3.coin.hit = true;
+                coin3.coin.body.velocity.y = -100;
+
+                var tween = this.add.tween(coin3.coin).to( { alpha: 0, angle: 360 }, 500, "Linear", true);
+                //animate the scale property of our coin to make it halve in size
+                this.add.tween(coin3.coin.scale).to( { x: .5, y: .5 }, 500, "Linear", true);
+            
+                //when our fade tween is complete call the function killcoin
+                tween.onComplete.add(removeSprite);
+
+                coins+= 1;
+                coinCollection.text = 'Coins' + coins;
+
+            };
+
+
+        }
+
+        if(checkOverlap(player, coin4.coin)) {
+            
+
+            if(!coin4.coin.hit && !player.dead) {
+
+                coin4.coin.hit = true;
+                coin4.coin.body.velocity.y = -100;
+
+                var tween = this.add.tween(coin4.coin).to( { alpha: 0, angle: 360 }, 500, "Linear", true);
+                //animate the scale property of our coin to make it halve in size
+                this.add.tween(coin4.coin.scale).to( { x: .5, y: .5 }, 500, "Linear", true);
+            
+                //when our fade tween is complete call the function killcoin
+                tween.onComplete.add(removeSprite);
+
+                coins+= 1;
+                coinCollection.text = 'Coins' + coins;
+
+            };
+
+
+        }
         
 
         if(controls.shoot.isDown) {
@@ -424,9 +552,51 @@ Game.Level1.prototype = {
             score =+ 10;
             enemyHit.text = 'Score: ' + score;
         }
-        if(checkOverlap(player, springs)) {
-            player.body.velocity.y = +playerSpeed*-8;
+        if(checkOverlap(player, spring1.spring)) {
+            player.body.velocity.y = +playerSpeed*-7.7;
         }
+        if(checkOverlap(player, spring2.spring)) {
+            // spring2.spring.body.acceleration.x = -20;
+            // player.body.velocity.x = +playerSpeed*-30 ;
+            
+            
+            player.body.acceleration.x = +playerSpeed * -180;
+            this.time.events.add(Phaser.Timer.SECOND *.65 , function() {
+
+                player.body.acceleration.x = 0;
+            
+            })
+           
+            
+        }
+
+        if(checkOverlap(player, spring3.spring)) {
+            player.body.velocity.y = +playerSpeed*-4;
+        }
+
+        if(checkOverlap(player, spring4.spring)) {
+            // spring2.spring.body.acceleration.x = -20;
+            // player.body.velocity.x = +playerSpeed*-30 ;
+
+            
+
+            
+            player.body.acceleration.x = +playerSpeed * 60;
+            
+            this.time.events.add(Phaser.Timer.SECOND *.45 , function() {
+
+                player.body.acceleration.x = 0;
+            
+            })
+           
+            
+        }
+
+        if(checkOverlap(player, spring5.spring)) {
+            player.body.velocity.y = +playerSpeed*-2;
+        }
+
+
 
         if(checkOverlap(player, endZone)) {
 
@@ -500,7 +670,7 @@ Game.Level1.prototype = {
         // map.putTile(-1, layer.getTileX(player.x), layer.getTileY(player.y));
 
         // playerSpeed += 100;
-        player.body.velocity.x +=85;
+        player.body.velocity.x -=85;
         
 
         this.time.events.add(Phaser.Timer.SECOND *1 , function() {

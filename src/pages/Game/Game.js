@@ -146,7 +146,7 @@ class MainPage extends Component {
                         failedMatchingPasswords: false
                     });
                     API.setEmptyScores({
-                    UserId: response.data.user.id
+                        UserId: response.data.user.id
                     })
                 })
                 .catch(err => console.log(err));

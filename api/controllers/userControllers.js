@@ -45,9 +45,6 @@ module.exports = {
         db.User.findAll({
             where: {
                 email: req.body.email
-                // {
-                //     [Sequelize.Op.like]: req.body.email
-                // }
             }
         }).then(function(dbEmail) {
             res.json(dbEmail);
@@ -65,8 +62,12 @@ module.exports = {
     // Update a level score from userID
     updateScore: function(req, res) {
         db.Score
-            .update(req.body,
-                { returning: true, where: {UserId: req.params.id} })
+            .update(req.body, {
+                returning: true,
+                    where: {
+                        UserId: req.params.id
+                    }
+                })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

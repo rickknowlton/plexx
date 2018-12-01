@@ -66,29 +66,65 @@ function getUserScores() {
     })
     .catch(error => {
         console.log(error)
-    })
+    });
 }
 
+// Arguments are score as an integer and level as a string
+function postUserScore(score, level) {
+    willGetCurrentUser
+    .then(user => {
+        const xmlhttp = new XMLHttpRequest();
 
-// Not Finished
-function postUserScore(userID, score, level) {
-    const xmlhttp = new XMLHttpRequest();
+        if (user.loggedIn) {
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                    if (xmlhttp.status == 200) {
+                        const response = JSON.parse(xmlhttp.responseText);
+                        console.log(response);
+                    }
+                    else if (xmlhttp.status == 400) {
+                        console.log("There was an error 400")
+                    }
+                    else {
+                        console.log('something else other than 200 was returned');
+                    }
+                }
+            }
+            xmlhttp.open("PUT", `/api/scores/${user.id}`, true);
+            xmlhttp.setRequestHeader('Content-Type', 'application/json');
+            
+            switch (level) {
+                case "levelOne":
+                    xmlhttp.send( JSON.stringify({
+                        levelOne: score
+                    }))
+                    break;
+                case "levelTwo":
+                    xmlhttp.send( JSON.stringify({
+                        levelTwo: score
+                    }))
+                    break;
+                case "levelThree":
+                    xmlhttp.send( JSON.stringify({
+                        levelThree: score
+                    }))
+                    break;
 
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-            if (xmlhttp.status == 200) {
-                const response = JSON.parse(xmlhttp.response);
             }
-            else if (xmlhttp.status == 400) {
-                console.log("There was an error 400")
-            }
-            else {
-                console.log('something else other than 200 was returned');
-            }
+            
         }
-    }
-    xmlhttp.open("POST", `/api/scores/${userID}`, true);
-    xmlhttp.send(encodeURIComponent({level: + score}));
+        else {
+            console.log("User not logged in");
+        }
+    })
+    .then(() => {
+        getUserScores();
+    })
+    .catch(error => {
+        console.log(error)
+    });
 };
 
-getUserScores();
+postUserScore(69, "levelOne");
+postUserScore(420, "levelTwo");
+postUserScore(111, "levelThree");
