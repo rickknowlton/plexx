@@ -30,7 +30,7 @@ class MainPage extends Component {
             redirectTo: null,
             showSigninForm: true,
             failedLogin: false,
-            show: true,
+            show: false,
             usernameAvailable: true,
             displayUnmatchedPasswords: false,
             failedMatchingPasswords: false

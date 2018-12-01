@@ -10,6 +10,7 @@ router.route("/")
     .get(userController.getScores);
 
 router.route("/:id")
-    .put(userController.updateScore);
+    .put(userController.updateScore)
+    .get(userController.getUserScores);
 
 module.exports = router;
