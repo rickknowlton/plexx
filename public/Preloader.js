@@ -19,9 +19,10 @@ Game.Preloader.prototype = {
         // load assets
 
 
-
+        // Level 1
         this.load.tilemap('map', '/images/new_level_layout.csv' );
 
+       
        
         this.load.image('tileset','/images/new_tileset.png');
 
@@ -31,7 +32,7 @@ Game.Preloader.prototype = {
 
         this.load.image('yeti', '/images/yeti.png', 32, 32);
 
-        this.load.image('background', '/images/background.png');
+        this.load.image('background', '/images/game_background_1.png');
 
         this.load.image('banana', '/images/banana.png');
 
@@ -45,7 +46,12 @@ Game.Preloader.prototype = {
 
         this.load.image('ground2', '/images/platform2.png');
 
+        this.load.image('ground3', '/images/platform3.png');
+
         this.load.image('endZone', '/images/endZone.png');
+
+        // Level 2
+        // this.load.tilemap('map2', '/images/test_level.csv' );
 
 
     },

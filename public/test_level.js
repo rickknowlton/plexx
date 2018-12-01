@@ -95,38 +95,38 @@ Game.Level1.prototype = {
 
         // this.physics.arcade.gravity.y = 1400;
 
-        map = this.add.tilemap('map', 32, 32);
+        map2 = this.add.tilemap('map', 32, 32);
 
-        map.addTilesetImage('tileset');
+        map2.addTilesetImage('platform');
         
 
-        layer = map.createLayer(0);
+        layer = map2.createLayer(0);
 
         layer.resizeWorld();
 
         // map.setCollisionBetween(21, 25);
 
-        map.setCollisionBetween(57, 58);
-        map.setCollisionBetween(118, 181);
-        map.setCollisionBetween(247, 268);
+        map2.setCollisionBetween(57, 58);
+        map2.setCollisionBetween(118, 181);
+        map2.setCollisionBetween(247, 268);
 
-        map.setCollisionBetween(652, 657);
-        map.setCollisionBetween(691, 703);
-        map.setCollisionBetween(731, 743);
-        map.setCollisionBetween(745,756);
-        map.setCollisionBetween(771,783);
-        map.setCollisionBetween(785,792);
-        map.setCollisionBetween(888,890);
-        map.setCollisionBetween(848, 852);
-        map.setCollisionBetween(808, 832);
-        map.setCollisionBetween(920, 1047);
-
-
+        map2.setCollisionBetween(652, 657);
+        map2.setCollisionBetween(691, 703);
+        map2.setCollisionBetween(731, 743);
+        map2.setCollisionBetween(745,756);
+        map2.setCollisionBetween(771,783);
+        map2.setCollisionBetween(785,792);
+        map2.setCollisionBetween(888,890);
+        map2.setCollisionBetween(848, 852);
+        map2.setCollisionBetween(808, 832);
+        map2.setCollisionBetween(920, 1047);
 
 
-        map.setTileIndexCallback(5, this.resetPlayer, this);
-        map.setTileIndexCallback(4, this.hitCoin, this);
-        map.setTileIndexCallback(8, this.speedPowerUp, this);
+
+
+        map2.setTileIndexCallback(5, this.resetPlayer, this);
+        map2.setTileIndexCallback(4, this.hitCoin, this);
+        map2.setTileIndexCallback(8, this.speedPowerUp, this);
         // map.setTileIndexCallback([290 ,319,348,377, 406, 435], this.jumpHigh, this);
 
         // platforms = game.add.group();
