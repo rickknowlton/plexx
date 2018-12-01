@@ -274,24 +274,20 @@ class MainPage extends Component {
     // Get list of usernames for new user validation
     validateUniqueUsernames = (e) => {
         this.handleInputChange(e)
-        this.state.userCheat = e.target.value;
+        let name = e.target.value;
  
-        if (this.state.userCheat.length > 3) {
+        if (name.length > 3) {
             API.getUsernames({
-                newUsername: this.state.userCheat
+                newUsername: name
             })
             .then(res => {
-                let takenUsernames = []
-                res.data.forEach(element => {
-                    takenUsernames.push(element.userName);
-                })
-                if (takenUsernames.length === 0) {
+                if (!res.data[0]) {
                     this.setState({
                         usernameAvailable: true,
                         usernameStateAvailability: "Username Available"
                     })
                 }
-                else if (this.state.usernameAvailable && (takenUsernames.length > 0)) {
+                else if (this.state.usernameAvailable && res.data[0]) {
                     this.setState({
                         usernameAvailable: false,
                         usernameStateAvailability: "Username Unavailable"
@@ -303,11 +299,11 @@ class MainPage extends Component {
 
     checkForRegisteredEmails = (e) => {
         this.handleInputChange(e);
-        this.state.checkEmail = e.target.value;
+        let checkEmail = e.target.value;
 
         if (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email.trim())) {
             API.getRegisteredEmails({
-                email: this.state.checkEmail
+                email: checkEmail
             })
             .then((res) => {
                 if (res.data[0]) {
