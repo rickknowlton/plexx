@@ -26,6 +26,31 @@ button {
   font-weight: bold;
 }
 
+.error-wrapper {
+	margin: 0, 0, 150px, 0;
+	height: auto;
+	border-width: 3px;
+	border-color: green;
+}
+
+.error-container {
+	margin: auto;
+	width: 50%;
+	padding: 8px;
+	text-align: center;
+	background-color: #e57373;
+	width: 90%;
+	border-radius: 3px;
+}
+
+.error-message {
+margin: 0, 50%, 0, 50%;	
+color: white;
+font-size: 1.2em;
+background-color: #e57373;
+text-align: center;
+}
+
 .z-depth-1-btn {
   box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.14), 0 1px 18px 0 rgba(255, 255, 255, 0.12), 0 3px 5px -1px rgba(255, 255, 255, 0.3);
 }

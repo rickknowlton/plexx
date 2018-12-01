@@ -78,7 +78,7 @@ export default class Modal extends React.Component {
         var modalUI = (
         <div style={backdropStyle}>
             <div style={modalStyle}>
-            {this.props.failedLogin && <span>Incorrect Credentials</span>}
+            {this.props.failedLogin && <div className="error-wrapper"><div className="error-container"><span className="error-message">Incorrect Credentials</span></div></div>}
 
             {this.props.showSigninForm ? (
                 <Row>
