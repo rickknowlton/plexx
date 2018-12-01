@@ -62,6 +62,7 @@ class MainPage extends Component {
                 userName: "",
                 email: "",
                 password: "",
+                failedLogin: false,
                 showSigninForm: false
             })
         }
