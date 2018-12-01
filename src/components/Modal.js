@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { Button } from "react-materialize";
+import { Button, Row, Col } from "react-materialize";
 import "../css/container.css";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
+import { Divider } from "./Divider";
+import { spawnSync } from "child_process";
+
 
 const backdropStyle = {
     position: "fixed",
@@ -13,7 +16,8 @@ const backdropStyle = {
     left: 0,
     right: 0,
     backgroundColor: "rgba(0,0,0,0.3)",
-    padding: 50
+    padding: 60,
+    zIndex: 100
 };
 
 const modalStyle = {
@@ -24,14 +28,16 @@ const modalStyle = {
     minHeight: 300,
     margin: "0 auto",
     padding: 30,
-    position: "relative"
+    position: "relative",
+    zIndex: 500
 };
 
 const footerStyle = {
-    position: "absolute",
-    bottom: 20,
+    position: "relative",
+    bottom: 10,
     borderTop: "10px",
-    borderTopColor: "#fff"
+    textAlign: "center"
+
 };
 
 const btnStyle = {
@@ -75,11 +81,15 @@ export default class Modal extends React.Component {
             {this.props.failedLogin && <span>Incorrect Credentials</span>}
 
             {this.props.showSigninForm ? (
+                <Row>
+                <Col s={12}>
                 <SignIn
                     handleInputChange={this.props.handleInputChange}
                     userName={this.props.userName}
                     password={this.props.password}
                 />
+                </Col>
+                </Row>
             ) : (
                 <SignUp
                     failedMatchingPasswords={this.props.failedMatchingPasswords}
@@ -103,6 +113,7 @@ export default class Modal extends React.Component {
                 <div className="modal-footer footerStyle">
                 {this.props.showSigninForm ? (
                     <React.Fragment>
+                    <Row>
                     <Button
                         className="waves-effect waves-light red lighten-2 btn"
                         onClick={e => {
@@ -118,15 +129,20 @@ export default class Modal extends React.Component {
                     >
                         Sign in
                     </Button>
+
+                    <Divider color="rgba(255, 255, 255, 0.625)" />
+                    Don't Have an Account? 
                     <span
-                        className="clickable"
+                        className="clickable register"
                         onClick={this.props.toggleSignInRegisterForm}
                     >
-                        Register
+                        &nbsp;Sign Up Here!
                     </span>
+                    </Row>
                     </React.Fragment>
                 ) : (
                     <React.Fragment>
+                    <Row>
                     <Button
                         className="waves-effect waves-light red lighten-2 btn"
                         onClick={e => {
@@ -152,6 +168,7 @@ export default class Modal extends React.Component {
                     >
                         Create Account
                     </Button>
+                    </Row>
                     </React.Fragment>
                 )}
                 </div>
