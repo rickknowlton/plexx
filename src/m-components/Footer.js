@@ -12,15 +12,15 @@ export const Footer = props => (
               <div className="col l4 offset-l2 s12">
                 <h5>Connect with plexx</h5>
                 <ul>
-                  <li><a href="https://twitter.com/plexxapp" target="_blank"><i className="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
-                  <li><a href="https://github.com/" target="_blank"><i className="fa fa-github" aria-hidden="true"></i> GitHub</a></li>
+                  <li><a href="https://twitter.com/plexxapp" rel="noopener noreferrer" target="_blank"><i className="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+                  <li><a href="https://github.com/" rel="noopener noreferrer" target="_blank"><i className="fa fa-github" aria-hidden="true"></i> GitHub</a></li>
                 </ul>
               </div>
             </div>
           </div>
           <div className="footer-copyright">
             <div className="container">
-            © 2018 | <a href="https://plexx.io/" target="_blank">plexx</a>
+            © 2018 | <a href="https://plexx.io/" rel="noopener noreferrer" target="_blank">plexx</a>
             </div>
           </div>
         </footer>

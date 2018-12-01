@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Nav, Footer } from "../../m-components";
-import { Container, Col, Row, Input, Card } from "react-materialize";
+import { Container, Col, Row } from "react-materialize";
 import Game from "../../components/Game";
 import Highscore from "../../components/Highscore";
 import Score from "../../components/Score";
@@ -38,7 +38,6 @@ class MainPage extends Component {
     }
 
     componentDidMount() {
-        console.log("component mounted");
         this.getUserAtPageLoad();
     }
 
@@ -174,7 +173,7 @@ class MainPage extends Component {
                     loggedIn: false,
                     displayName: null
                 })
-                console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
+                // console.log(`username: ${res.data.username}\nid: ${res.data.id}`);
             }
         });
     };
@@ -240,7 +239,6 @@ class MainPage extends Component {
     };
 
     showModalWithSignIn = () => {
-        console.log("show modal clicked")
         this.setState({
             ...this.state,
             userCheat: "",
@@ -259,6 +257,15 @@ class MainPage extends Component {
     showModalWithSignUp = () => {
         this.setState({
             ...this.state,
+            userCheat: "",
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            usernameStateAvailability: "Username",
+            checkEmail: "",
+            registerNewEmail: "Email",
+            failedLogin: false,
             showSigninForm: false,
             show: !this.state.show
         });

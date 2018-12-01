@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import { Input, Button } from "react-materialize";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { Input } from "react-materialize";
 
 export const SignUp = props => (
 	<div>

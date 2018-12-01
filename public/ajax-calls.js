@@ -125,6 +125,6 @@ function postUserScore(score, level) {
     });
 };
 
-postUserScore(69, "levelOne");
-postUserScore(420, "levelTwo");
-postUserScore(111, "levelThree");
+// postUserScore(69, "levelOne");
+// postUserScore(420, "levelTwo");
+// postUserScore(111, "levelThree");
