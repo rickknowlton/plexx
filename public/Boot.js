@@ -17,14 +17,10 @@ Game.Boot.prototype = {
     preload:function() {
 
         this.load.image('preloaderBar', '/images/preloader.png');
-        
     },
 
     create:function() {
 
-        this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-        this.scale.pageAlignHorizontally = true;
-        this.scale.pageAlignVertically = true;
         this.state.start('Preloader');
     }
 }
