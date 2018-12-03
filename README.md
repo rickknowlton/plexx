@@ -16,19 +16,19 @@
 ## <a name="about"></a> About
 The year is 1943, Colonel Sergei Volkov, part of the secret, yet inconspicous Agency for Internal Affairs (AVD) has been briefed and sent on a mission to the Arctic Circle as reconnaisance to surveil an illusive division of Nazi scientists known only as A.G.A.R.T.H.A.
 
-After several days, Colonel Volkov had found no trace of a Nazi presence, but during the expedition a heavy snow squall separated Volkov and his team. Battling thru the snow, Volkov found his way to shelter in an ice cave. Soon, Volkov realized it was more than just a cave. It was then that everything changed...
+After several days, Colonel Volkov had found no trace of a Nazi presence, but during the expedition a heavy snow squall separated Volkov and his team. Battling thru the elements, Volkov found his way to shelter in an ice cave. Soon, Colonel Volkov realized it was more than just a cave. It was then that everything changed...
 
 ## <a name="how-to"></a> How to Play
 Navigate Sergei thru each level, picking up coins and powerups along the way to help him in his mission. Watch out for enemies that may be hiding or that stand in Serg's way.
 
 #### Controls:
-    - `W` Jump/Up
-    - `A` Left
-    - `D` Right
+- `W` Jump/Up
+- `A` Left
+- `D` Right
 
-    - `←` Shoot Left
-    - `→` Shoot Right
-    - `↑` Shoot Up
+- `←` Shoot Left
+- `→` Shoot Right
+- `↑` Shoot Up
     
 
 ## <a name="requirements"></a> System Requirements
