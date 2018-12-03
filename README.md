@@ -1,4 +1,4 @@
-# plexx
+![alt-text](./public/images/logo.JPG)
 🛸 plexx is a classic platform-style game, built with Phaser2 and React.
 
 ## Table of contents
@@ -60,6 +60,14 @@ There is a Vagrant Ubuntu Shell provided with this repo. For more information on
 - SQL
 - Docker
 - Materialize
+- Passport
+- Axios
+- Express
+- Bcrypt
+- Sequelize
+- Express
+- Express Sessions
+
 
 ## <a name="team"></a> Team
 - [Scott Sawyer - Team Lead/Game Design](https://github.com/scottasawyer)
