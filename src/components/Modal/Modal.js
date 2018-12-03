@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { Button, Row, Col } from "react-materialize";
-import "../css/container.css";
-import { SignIn } from "./SignIn";
-import { SignUp } from "./SignUp";
-import { Divider } from "./Divider";
+import { SignIn } from "../SignIn/SignIn";
+import { SignUp } from "../SignUp/SignUp";
+import { Divider } from "../Divider/Divider";
+import "./Modal.css";
 
 const backdropStyle = {
     position: "fixed",
@@ -130,7 +130,7 @@ export default class Modal extends React.Component {
                     <Divider color="rgba(255, 255, 255, 0.625)" />
                     Don't Have an Account? 
                     <span
-                        className="clickable register hoverable pointer"
+                        className="clickable register pointer"
                         onClick={this.props.toggleSignInRegisterForm}
                     >
                         &nbsp;Sign Up Here!
@@ -149,6 +149,7 @@ export default class Modal extends React.Component {
                         Cancel
                     </Button>
                     <Button
+                        className="waves-effect waves-light cyan lighten-2 btn "
                         s={12}
                         disabled={
                         !(

@@ -1,6 +1,6 @@
 import React from "react";
 import { Input } from "react-materialize";
-import '../css/container.css';
+import './SignUp.css';
 
 
 export const SignUp = props => (

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card } from "react-materialize";
-import '../css/game.css';
-import "../css/container.css";
+import "./Highscore.css"
 
 const Highscore = props => (
     <React.Fragment>
