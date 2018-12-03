@@ -1,9 +1,11 @@
 import React from "react";
 import { Input } from "react-materialize";
+import '../css/container.css';
+
 
 export const SignUp = props => (
 	<div>
-		{props.failedMatchingPasswords && <span>Passwords did not match!</span>}
+		{props.failedMatchingPasswords && <div className="error-wrapper"><div className="error-container"><span className="error-message">Passwords Did Not Match!</span></div></div>}
 	
 	<form className="white-text">
 	<Input
