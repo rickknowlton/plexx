@@ -1,5 +1,5 @@
 ![alt-text](./public/images/logo.JPG)
-🛸 plexx is a classic platform-style game, built with Phaser2 and React.
+## 🛸 plexx is a classic platform-style game, built with Phaser2 and React.
 
 ## Table of contents
   * [About](#about)
