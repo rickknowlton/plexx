@@ -1,3 +1,5 @@
+![alt-text][./public/images/logo.JPG]
+
 # React, MySQL, Mongo, Express API Docker Shell
 
 This project is intended to serve as a base shell for a full-stack React application with a MySQL (or Mongo) Database and an Express backend API. The local full-stack environment is defined using [Docker Compose](https://docs.docker.com/compose/), which runs three independent containers for React, Database (MySQL/Mongo), and Express simultaneously. To run Mongo instead of MySQL, you will need to modify the `db:` entry in `docker-compose.yml` and replace with the settings from `mongo.yml`.
