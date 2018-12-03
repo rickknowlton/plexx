@@ -1,4 +1,4 @@
-![alt-text][./public/images/logo.JPG]
+![alt-text](./public/images/logo.JPG)
 
 # React, MySQL, Mongo, Express API Docker Shell
 
