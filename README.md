@@ -72,7 +72,7 @@ There is a Vagrant Ubuntu Shell provided with this repo. For more information on
 ## <a name="team"></a> Team
 - [Scott Sawyer - Team Lead/Game Design](https://github.com/scottasawyer)
 - [Greg Row - Game Mechanics](https://github.com/rowgregory)
-- [Bobby "Blooby" Hoffman - Full Stack Developer](https://github.com/)
+- [Bobby "Blooby" Hoffman - Full Stack Developer](https://github.com/rhoffman103)
 - [Rick Knowlton - Front End Developer/Concept Design](https://github.com/rickknowlton)
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/footer.css'
+import './Footer.css'
 
 export const Footer = props => (
 <footer className="page-footer cyan accent-2 z-depth-5">

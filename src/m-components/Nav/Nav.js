@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/logo.css';
+import './Nav.css';
 import { Button } from "react-materialize";
 
 export const Nav = props => (

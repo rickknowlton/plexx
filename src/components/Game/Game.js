@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/game.css';
+import './Game.css';
 
 const gameStyle = {
   // marginLeft: "auto",

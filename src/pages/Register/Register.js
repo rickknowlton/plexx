@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import { Redirect } from "react-router-dom";
-import { Nav, Footer } from "../../m-components";
+import { Nav } from "../../m-components/Nav/Nav";
+import { Footer } from "../../m-components/Footer/Footer";
 import { Container, Row } from "react-materialize";
 import '../../css/container.css'
-import { SignUp } from "../../components/SignUp";
+import { SignUp } from "../../components/SignUp/SignUp";
 
 class Register extends Component {
     state = {

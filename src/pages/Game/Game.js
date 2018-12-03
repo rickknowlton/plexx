@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { Nav, Footer } from "../../m-components";
 import { Container, Col, Row } from "react-materialize";
-import Game from "../../components/Game";
-import Highscore from "../../components/Highscore";
-import Score from "../../components/Score";
-import "../../css/container.css";
-import Modal from "../../components/Modal";
+import { Nav } from "../../m-components/Nav/Nav";
+import { Footer } from "../../m-components/Footer/Footer";
+import Game from "../../components/Game/Game";
+import Highscore from "../../components/Highscore/Highscore";
+import Score from "../../components/Score/Score";
+import Modal from "../../components/Modal/Modal";
 import API from "../../utils/API";
+import "../../css/container.css";
+
 
 class MainPage extends Component {
     constructor(props) {
